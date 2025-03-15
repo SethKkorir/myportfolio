@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seth Kipchumba - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">SK</a>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <!-- Add the toggle button here -->
+            <button id="theme-toggle" class="theme-toggle">
+                <i class="fas fa-moon"></i> <!-- Default to light mode (moon icon) -->
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="profile-pic">
+                    <!-- Replace the src with your actual profile picture -->
+                    <img src="/SKK.jpg" alt="Seth Kipchumba">
+                </div>
+                <h1>Seth Kipchumba Korir</h1>
+                <p class="subtitle">Applied Computer Science Student & Junior Web Developer</p>
+                <div class="cta-buttons">
+                    <a href="/CV.docx" class="btn primary" download>
+                        <i class="fas fa-download"></i> Download CV
+                    </a>
+                    <a href="#contact" class="btn secondary">Contact Me</a>
+                </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <p>
+                    A highly motivated and detail-oriented student pursuing a Bachelor's degree in Applied Computer Science at Daystar University. Skilled in web development with a strong foundation in the MERN stack (MongoDB, Express, Node.js), APIs, and version control using Git. Passionate about creating accessible and user-friendly technologies, I am eager to contribute to innovative projects, collaborate with diverse teams, and further develop my technical expertise.
+                </p>
+                <div class="about-cards">
+                    <div class="card">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>Education</h3>
+                        <p>Bachelor's in Applied Computer Science<br>Daystar University</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-laptop-code"></i>
+                        <h3>Experience</h3>
+                        <p>Software Development<br>Techsavanna Company Limited</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-code"></i>
+                        <h3>Interests</h3>
+                        <p>Web Development<br>Open Source Projects</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2>Experience & Education</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="content">
+                        <h3>Attachment Trainee</h3>
+                        <p class="place">Techsavanna Company Limited</p>
+                        <ul>
+                            <li>Gained hands-on experience in developing REST APIs and integrating them into web applications</li>
+                            <li>Collaborated with a team of developers to design, develop, and test backend systems</li>
+                            <li>Enhanced skills in team collaboration, version control (Git), and API documentation using tools like Postman</li>
+                            <li>Contributed to the development of scalable and efficient backend solutions</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="content">
+                        <h3>Bachelor of Applied Computer Science</h3>
+                        <p class="place">Daystar University</p>
+                        <p class="time">2024 – Present</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="content">
+                        <h3>Diploma in ICT</h3>
+                        <p class="place">Daystar University</p>
+                        <p class="time">2023 – 2024</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-info">
+                        <span>HTML/CSS</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 90%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info">
+                        <span>JavaScript</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 85%"></div>
+                    </div>
+                </div>
+                <!-- Add more skills here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1532630571098-79a3d222b00d" alt="Visitor Management System">
+                    <div class="project-content">
+                        <h3>Visitor Management System</h3>
+                        <p>A full-stack visitor management system using MongoDB, Express, Node.js, and front-end technologies (HTML, CSS, JavaScript). Designed to streamline visitor registration and tracking.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/SethKkorir/Project.git" target="_blank" class="btn">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                            <a href="#" class="btn">
+                                <i class="fas fa-external-link-alt"></i> Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1532630571098-79a3d222b00d" alt="Visitor Management System">
+                    <div class="project-content">
+                        <h3>Rerendet Coffee farm </h3>
+                        <p>A full-stack visitor management system using MongoDB, Express, Node.js, and front-end technologies (HTML, CSS, JavaScript). Designed to streamline visitor registration and tracking.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/SethKkorir/Project.git" target="_blank" class="btn">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                            <a href="#" class="btn">
+                                <i class="fas fa-external-link-alt"></i> Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Me</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <p>+254748497623</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <p>zsethkipchumba179@gmail.com</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>Bomet, Nairobi, 20400</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://linkedin.com/in/seth-kipchumba-korir" target="_blank" class="social-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/SethKkorir" target="_blank" class="social-icon">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://twitter.com/yourusere" target="_blank" class="social-icon">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.instagram.com/zs_kip/" target="_blank" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                </div>
+                <form class="contact-form">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" placeholder="Your Message" required></textarea>
+                    <button type="submit" class="btn primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Seth Kipchumba. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+</body>
+</html>

@@ -45,34 +45,12 @@ const body = document.body;
 
 // Save Theme Preference
 const saveThemePreference = (theme) => {
-    fetch('http://localhost:5000/api/theme', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ theme }),
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log('Theme preference saved:', data.theme);
-        })
-        .catch((error) => {
-            console.error('Error saving theme preference:', error);
-        });
+    localStorage.setItem('theme', theme);
 };
 
 // Retrieve Theme Preference
 const getThemePreference = () => {
-    fetch('http://localhost:5000/api/theme')
-        .then((response) => response.json())
-        .then((data) => {
-            const theme = data.theme;
-            body.setAttribute('data-theme', theme);
-            updateToggleIcon(theme);
-        })
-        .catch((error) => {
-            console.error('Error retrieving theme preference:', error);
-        });
+    return localStorage.getItem('theme') || 'light';
 };
 
 // Update the toggle icon based on the theme
@@ -97,7 +75,9 @@ themeToggle.addEventListener('click', () => {
 });
 
 // Initialize Theme on Page Load
-getThemePreference();
+const savedTheme = getThemePreference();
+body.setAttribute('data-theme', savedTheme);
+updateToggleIcon(savedTheme);
 
 // Skills animation on scroll
 const skillBars = document.querySelectorAll('.progress');
@@ -173,7 +153,7 @@ contactForm.addEventListener('submit', (e) => {
     })
         .then((response) => response.json())
         .then((result) => {
-            alert(result.message || 'Message sent successfully!');
+            alert(result.message || 'Message sent successfully! Thank you for contacting Seth');
             contactForm.reset();
         })
         .catch((error) => {
@@ -186,3 +166,32 @@ contactForm.addEventListener('submit', (e) => {
 window.addEventListener('load', () => {
     animateSkills();
 });
+// CV Download Functionality - Coming Soon Alert
+document.getElementById('download-cv').addEventListener('click', function (e) {
+    e.preventDefault(); // Prevent the default behavior (downloading the file)
+    alert('Coming Soon!!!');
+});
+
+// CV Download Functionality
+// document.getElementById('download-cv').addEventListener('click', function (e) {
+//     e.preventDefault();
+
+//     const element = document.getElementById('cv-template');
+//     element.style.display = 'block';
+
+//     const options = {
+//         margin: [10, 10, 10, 10],
+//         filename: 'Seth_Kipchumba_CV.pdf',
+//         image: { type: 'jpeg', quality: 0.98 },
+//         html2canvas: { scale: 2 },
+//         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+//     };
+
+//     html2pdf()
+//         .from(element)
+//         .set(options)
+//         .save()
+//         .then(() => {
+//             element.style.display = 'none';
+//         });
+// });

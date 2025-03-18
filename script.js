@@ -151,6 +151,10 @@ contactForm.addEventListener('submit', (e) => {
         },
         body: JSON.stringify(data),
     })
+    .then((response) => {
+        console.log('Response:', response); // Check the response
+        return response.json();
+    })
         .then((response) => response.json())
         .then((result) => {
             alert(result.message || 'Message sent successfully! Thank you for contacting Seth');

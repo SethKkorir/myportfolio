@@ -171,6 +171,11 @@ document.getElementById('download-cv').addEventListener('click', function (e) {
     e.preventDefault(); // Prevent the default behavior (downloading the file)
     alert('Coming Soon!!!');
 });
+document.getElementById('btn primary').addEventListener('click', function (e) {
+    e.preventDefault(); // Prevent the default behavior (downloading the file)
+    alert('Coming Soon!');
+});
+// document.getElementById()
 
 // CV Download Functionality
 // document.getElementById('download-cv').addEventListener('click', function (e) {

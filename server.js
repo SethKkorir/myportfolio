@@ -12,9 +12,12 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
+const cors = require('cors');
+const app = express();
+
 app.use(cors({
-  origin: ['https://sethkorir.netlify.app', 'http:192.168.28.245:5000'], // Allow requests from your frontend and local network
-  methods: ['GET', 'POST'],
+    origin: 'https://sethkorir.netlify.app', // Allow requests from your frontend
+    methods: ['GET', 'POST'], // Allow specific HTTP methods
 }));
   // Set secure HTTP headers
 app.use(helmet());

@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 const cors = require('cors');
-const app = express();
+// const app = express();
 
 app.use(cors({
     origin: 'https://sethkorir.netlify.app', // Allow requests from your frontend

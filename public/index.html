@@ -6,28 +6,28 @@
     <meta name="description" content="Seth Kipchumba's Portfolio - Applied Computer Science Student & Junior Web Developer">
     <meta name="keywords" content="web development, portfolio, MERN stack, JavaScript, HTML, CSS">
     <meta name="author" content="Seth Kipchumba">
-    <title>Seth Kipchumba - Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <title >Seth Kipchumba - Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-            <a href="/index.html" class="logo">SK</a>
-            <div class="nav-toggle">
+            <a href="/public/index.html" class="logo">SK</a>
+            <div class="nav-toggle" id="navToggle">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <ul class="nav-menu">
-                <li><a href="/index.html">Home</a></li>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#skills">Skills</a></li>
-                <!-- <li><a href="#projects">Projects</a></li> -->
-                <!-- <li><a href="#blog">Blog</a></li> -->
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#blog">Blog</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <button id="theme-toggle" class="theme-toggle">
@@ -41,12 +41,12 @@
         <div class="container">
             <div class="hero-content">
                 <div class="profile-pic">
-                    <img src="/prof.png" alt="Seth Kipchumba">
+                    <img src="/public/assets/prof.png" alt="Seth Kipchumba">
                 </div>
                 <h1 class="animate__animated animate__fadeIn">Seth Kipchumba Korir</h1>
                 <p class="subtitle animate__animated animate__fadeIn">Applied Computer Science Student & Junior Web Developer</p>
                 <div class="cta-buttons animate__animated animate__fadeIn">
-                    <a href="" class="btn primary" id="download-cv">
+                    <a href="/CV.docx" class="btn primary" id="download-cv" download>
                         <i class="fas fa-download"></i> Download CV
                     </a>
                     <a href="#contact" class="btn secondary">Contact Me</a>
@@ -115,43 +115,58 @@
                         <p class="time">2023 – 2024</p>
                     </div>
                 </div>
+                <div class="timeline-item">
+                    <div class="content">
+                        <h3>Certificate in ICT</h3>
+                        <p class="place">Daystar University</p>
+                        <p class="time">May-2022 – Nov-2022</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-
+   
     <!-- Skills Section -->
     <section id="skills" class="skills">
         <div class="container">
             <h2>Technical Skills</h2>
             <div class="skills-grid">
                 <div class="skill-item">
+                    <div class="circular-progress">
+                        <svg>
+                            <circle cx="75" cy="75" r="70"></circle>
+                            <circle cx="75" cy="75" r="70" style="--percent: 90"></circle>
+                        </svg>
+                    </div>
                     <div class="skill-info">
                         <span>HTML/CSS</span>
                         <span>90%</span>
                     </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: 90%"></div>
-                    </div>
                 </div>
                 <div class="skill-item">
+                    <div class="circular-progress">
+                        <svg>
+                            <circle cx="75" cy="75" r="70"></circle>
+                            <circle cx="75" cy="75" r="70" style="--percent: 85"></circle>
+                        </svg>
+                    </div>
                     <div class="skill-info">
                         <span>JavaScript</span>
                         <span>85%</span>
                     </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: 85%"></div>
-                    </div>
                 </div>
                 <div class="skill-item">
+                    <div class="circular-progress">
+                        <svg>
+                            <circle cx="75" cy="75" r="70"></circle>
+                            <circle cx="75" cy="75" r="70" style="--percent: 40"></circle>
+                        </svg>
+                    </div>
                     <div class="skill-info">
                         <span>MERN</span>
                         <span>40%</span>
                     </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: 40%"></div>
-                    </div>
                 </div>
-                <!-- Add more skills here -->
             </div>
         </div>
     </section>
@@ -162,7 +177,7 @@
             <h2>Projects</h2>
             <div class="projects-grid">
                 <div class="project-card">
-                    <img src="/vms.jpg" alt="Visitor Management System">
+                    <img src="/public/assets/vms.jpg" alt="Visitor Management System">
                     <div class="project-content">
                         <h3>Visitor Management System</h3>
                         <p>A full-stack visitor management system using MongoDB, Express, Node.js, and front-end technologies (HTML, CSS, JavaScript). Designed to streamline visitor registration and tracking.</p>
@@ -177,59 +192,54 @@
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="https://images.unsplash.com/photo-1532630571098-79a3d222b00d" alt="Rerendet Coffee Farm">
+                    <img src="/public/assets/rerendet.png" alt="Rerendet Coffee Farm">
                     <div class="project-content">
                         <h3>Rerendet Coffee Farm</h3>
-                        <p>A full-stack visitor management system using MongoDB, Express, Node.js, and front-end technologies (HTML, CSS, JavaScript). Designed to streamline visitor registration and tracking.</p>
+                        <p>Rerendet Coffee is an ongoing e-commerce project showcasing premium specialty coffee sourced directly from Bomet, Kenya. I am developing to enhance storytelling, streamline shopping, and improve customer engagement.</p>
                         <div class="project-links">
-                            <a href="https://github.com/SethKkorir/Project.git" target="_blank" class="btn">
+                            <a href="#" class="btn" onclick="alert('Coming Soon!');">
+
+                            <!-- <a href="https://github.com/SethKkorir/Project.git" target="_blank" class="btn"> -->
                                 <i class="fab fa-github"></i> GitHub
                             </a>
-                            <a href="#" class="btn">
+                            <a href="#" class="btn" onclick="alert('Coming Soon!');">
                                 <i class="fas fa-external-link-alt"></i> Demo
                             </a>
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
     </section>
 
     <!-- Blog Section -->
-    <!-- <section id="blog" class="blog">
+    <section id="blog" class="blog">
         <div class="container">
             <h2>Blog</h2>
             <div class="blog-grid">
                 <div class="blog-card">
-                    <h3>How to Build a REST API with Node.js</h3>
-                    <p>A step-by-step guide to building a REST API using Express and MongoDB.</p>
-                    <a href="#" class="btn">Read More</a>
+                    <h3>The Sauna Life</h3>
+                    <p>Exploring the benefits and cultural significance of sauna practices from around the world.</p>
+                    <a href="https://medium.com/@kipzseth/the-sauna-life-0c400f8bb4b4" target="_blank" class="btn">
+                        <i class="fab fa-medium"></i> Read on Medium
+                    </a>
                 </div>
                 <div class="blog-card">
-                    <h3>The Future of Web Development in 2024</h3>
-                    <p>Insights into the latest trends and technologies in web development.</p>
-                    <a href="#" class="btn">Read More</a>
+                    <h3>Cultural Comparisons in Kenya</h3>
+                    <p>An insightful look at the diverse cultural traditions across different communities in Kenya.</p>
+                    <a href="https://medium.com/@kipzseth/comparison-between-different-cultures-in-kenya-d88a13e6e42a" target="_blank" class="btn">
+                        <i class="fab fa-medium"></i> Read on Medium
+                    </a>
                 </div>
             </div>
-        </div>
-    </section> -->
-
-    <!-- Testimonials Section -->
-    <!-- <section id="testimonials" class="testimonials">
-        <div class="container">
-            <h2>Testimonials</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial">
-                    <p>"Seth is a highly skilled developer with a strong work ethic. He delivered our project on time and exceeded expectations!"</p>
-                    <p class="author">- John Doe, CEO at Techsavanna</p>
-                </div>
-                <div class="testimonial">
-                    <p>"Working with Seth was a great experience. His attention to detail and problem-solving skills are exceptional."</p>
-                    <p class="author">- Jane Smith, Project Manager</p>
-                </div>
+            <div class="blog-cta">
+                <a href="https://medium.com/@kipzseth" target="_blank" class="btn secondary">
+                    <i class="fab fa-medium"></i> View All Articles
+                </a>
             </div>
         </div>
-    </section> -->
+    </section>
 
     <!-- Contact Section -->
     <section id="contact" class="contact">
@@ -262,13 +272,17 @@
                         <a href="https://www.instagram.com/zs_kip/" target="_blank" class="social-icon">
                             <i class="fab fa-instagram"></i>
                         </a>
+                        <a href="https://medium.com/@kipzseth" target="_blank" class="social-icon">
+                            <i class="fab fa-medium"></i>
+                        </a>
                     </div>
                 </div>
-                <form class="contact-form">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                    <input type="email" name="email" placeholder="Your Email" required>
-                    <textarea name="message" placeholder="Your Message" required></textarea>
+                <form id="contactForm" class="contact-form">
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    <textarea id="message" name="message" placeholder="Your Message" required></textarea>
                     <button type="submit" class="btn primary">Send Message</button>
+                    <div id="form-message" class="form-message"></div>
                 </form>
             </div>
         </div>
@@ -277,19 +291,12 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2025 Seth Kipchumba. All rights reserved.</p>
+            <p>&copy; <span id="current-year"></span> Seth Kipchumba. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="script.js"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA_ID"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', 'YOUR_GA_ID');
-</script>
+    <script src="/public/script.js">
+        
+    </script>
 </body>
 </html>

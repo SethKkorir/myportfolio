@@ -1,7 +1,7 @@
 Seth Korir - Portfolio Website
 Portfolio Screenshot
 
-Live Demo: https://sethkorir.netlify.app/
+Live Demo: https://sethkip.netlify.app/
 
 Overview
 This is a modern, responsive portfolio website for Seth Korir, a Full Stack Developer. The static website features a clean design with dark/light mode toggle and smooth animations.

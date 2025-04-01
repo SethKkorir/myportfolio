@@ -16,7 +16,7 @@ const cors = require('cors');
 // const app = express();
 
 app.use(cors({
-    origin: 'https://sethkorir.netlify.app', // Allow requests from your frontend
+    origin: 'https://sethkip.netlify.app', // Allow requests from your frontend
     methods: ['GET', 'POST'], // Allow specific HTTP methods
 }));
   // Set secure HTTP headers

@@ -4,6 +4,8 @@ import Home from './Home';
 import AdminLogin from './AdminLogin';
 import AdminDashboard from './AdminDashboard';
 
+import ProtectedRoute from './ProtectedRoute';
+
 function App() {
   return (
     <Router>
@@ -11,7 +13,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </div>
     </Router>

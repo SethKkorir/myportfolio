@@ -43,6 +43,20 @@ router.post('/projects', auth, async (req, res) => {
     }
 });
 
+// Update a project (Protected)
+router.put('/projects/:id', auth, async (req, res) => {
+    try {
+        const project = await Project.findByIdAndUpdate(
+            req.params.id,
+            { $set: req.body },
+            { new: true }
+        );
+        res.json(project);
+    } catch (err) {
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
 // Delete a project (Protected)
 router.delete('/projects/:id', auth, async (req, res) => {
     try {
@@ -70,6 +84,20 @@ router.post('/skills', auth, async (req, res) => {
     try {
         const newSkill = new Skill(req.body);
         const skill = await newSkill.save();
+        res.json(skill);
+    } catch (err) {
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+// Update a skill (Protected)
+router.put('/skills/:id', auth, async (req, res) => {
+    try {
+        const skill = await Skill.findByIdAndUpdate(
+            req.params.id,
+            { $set: req.body },
+            { new: true }
+        );
         res.json(skill);
     } catch (err) {
         res.status(500).json({ message: 'Server Error' });

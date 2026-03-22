@@ -1,96 +1,156 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Download, ChevronRight, Github, Linkedin, Mail, Code, GraduationCap, Coffee, Laptop } from 'lucide-react';
+
+const floatingIcons = [
+  { Icon: Code,         color: '#6366f1', style: { top: '18%', left: '8%'    } },
+  { Icon: GraduationCap, color: '#10b981', style: { top: '22%', right: '10%' } },
+  { Icon: Coffee,       color: '#f59e0b', style: { bottom: '28%', left: '10%' } },
+  { Icon: Laptop,       color: '#ec4899', style: { bottom: '22%', right: '8%' } },
+];
 
 const Hero = () => {
-    // Floating icons configuration with more scattered positions and varied animations
-    const floatingIcons = [
-        { icon: "fa-robot", color: "#60a5fa", style: { top: "15%", left: "10%" }, duration: 6, yOffset: 30 },
-        { icon: "fa-code", color: "#a78bfa", style: { top: "20%", right: "15%" }, duration: 5, yOffset: -30 },
-        { icon: "fa-github", color: "#333", style: { bottom: "15%", left: "15%" }, duration: 7, yOffset: 40 },
-        { icon: "fa-mug-hot", color: "#d97706", style: { bottom: "20%", right: "10%" }, duration: 5.5, yOffset: -40 },
-        { icon: "fa-react", color: "#61dafb", style: { top: "40%", left: "5%" }, duration: 8, yOffset: 25 },
-        { icon: "fa-node", color: "#68a063", style: { top: "30%", right: "5%" }, duration: 6.5, yOffset: -25 },
-        { icon: "fa-database", color: "#4db33d", style: { bottom: "40%", right: "8%" }, duration: 7.5, yOffset: 35 },
-        { icon: "fa-cloud", color: "#3b82f6", style: { bottom: "30%", left: "5%" }, duration: 6, yOffset: -35 }
-    ];
+  const [content, setContent] = React.useState({
+    greeting: "Hello, I'm",
+    name: "Seth Kipchumba Korir",
+    tagline: "Applied Computer Science Student at Daystar University & Junior Web Developer with hands-on experience in the MERN stack and REST API development.",
+    socials: [
+      { id: 1, platform: "GitHub", href: "https://github.com/SethKkorir", icon: "Github" },
+      { id: 2, platform: "LinkedIn", href: "https://www.linkedin.com/in/seth-korir-7b9416279/", icon: "Linkedin" }
+    ]
+  });
 
-    return (
-        <section id="home" className="hero">
-            {/* Animated Background Icons */}
-            {floatingIcons.map((item, index) => (
-                <motion.div
-                    key={index}
-                    className="floating-icon"
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{
-                        opacity: 0.4, // Reduced slightly for balance
-                        scale: 1,
-                        y: [0, item.yOffset, 0],
-                        x: [0, item.yOffset / 2, 0], // Add X movement
-                        rotate: [0, 10, -10, 0]
-                    }}
-                    transition={{
-                        duration: item.duration,
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                        ease: "easeInOut"
-                    }}
-                    style={{
-                        position: 'absolute',
-                        ...item.style,
-                        color: item.color,
-                        fontSize: '3rem',
-                        zIndex: 0,
-                        pointerEvents: 'none'
-                    }}
-                >
-                    <i className={`fas ${item.icon}`}></i>
-                </motion.div>
-            ))}
+  React.useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const res = await fetch('/api/admin/portfolio-content');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.hero) {
+            setContent(prev => ({
+              ...prev,
+              greeting: data.hero.greeting || prev.greeting,
+              name: data.hero.name || prev.name,
+              tagline: data.hero.tagline || prev.tagline,
+              socials: data.socials || prev.socials
+            }));
+          }
+        }
+      } catch (e) {
+        // Fallback to local storage if backend fails
+        const localContent = localStorage.getItem('portfolioContent');
+        if (localContent) {
+          try {
+            const parsed = JSON.parse(localContent);
+            if (parsed.hero) {
+              setContent(prev => ({
+                ...prev,
+                greeting: parsed.hero.greeting || prev.greeting,
+                name: parsed.hero.name || prev.name,
+                tagline: parsed.hero.tagline || prev.tagline,
+                socials: parsed.socials || prev.socials
+              }));
+            }
+          } catch(err) {}
+        }
+      }
+    };
+    fetchContent();
+  }, []);
 
-            <div className="container">
-                <div className="hero-content">
-                    <motion.div
-                        className="profile-pic"
-                        initial={{ scale: 0, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <img src="/assets/prof.png" alt="Seth Kipchumba" />
-                    </motion.div>
+  const getIcon = (platform) => {
+    const p = platform.toLowerCase();
+    if (p.includes('github')) return <Github size={22} />;
+    if (p.includes('linkedin')) return <Linkedin size={22} />;
+    return <Mail size={22} />;
+  };
 
-                    <motion.h1
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.2, duration: 0.5 }}
-                    >
-                        Seth Kipchumba Korir
-                    </motion.h1>
+  return (
+    <section id="home" className="hero">
+      {floatingIcons.map(({ Icon, color, style }, i) => (
+        <motion.div
+          key={i}
+          className="float-icon"
+          style={{ ...style, color }}
+          animate={{ y: [0, -20, 0], rotate: [0, 5, -5, 0] }}
+          transition={{ duration: 5 + i, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <Icon size={40} />
+        </motion.div>
+      ))}
 
-                    <motion.p
-                        className="subtitle"
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.4, duration: 0.5 }}
-                    >
-                        Applied Computer Science Student & Junior Web Developer
-                    </motion.p>
+      <div className="container">
+        <div className="hero-inner">
+          <motion.div
+            className="hero-avatar"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.8, ease: 'backOut' }}
+          >
+            <img src="/assets/prof.png" alt={content.name} />
+          </motion.div>
 
-                    <motion.div
-                        className="cta-buttons"
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.6, duration: 0.5 }}
-                    >
-                        <a href="/assets/CV.docx" className="btn primary" id="download-cv" download>
-                            <i className="fas fa-download"></i> Download CV
-                        </a>
-                        <a href="#contact" className="btn secondary">Contact Me</a>
-                    </motion.div>
-                </div>
-            </div>
-        </section>
-    );
+          <motion.span
+            className="hero-tag"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            {content.greeting}
+          </motion.span>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.7 }}
+          >
+            {content.name.split(' ').slice(0, -1).join(' ')}<br />
+            <span className="accent">{content.name.split(' ').slice(-1)}</span>
+          </motion.h1>
+
+          <motion.p
+            className="hero-sub"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.45, duration: 0.7 }}
+          >
+            {content.tagline}
+          </motion.p>
+
+        <motion.div
+          className="hero-btns"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.7 }}
+        >
+          <a href="/resume" className="btn-primary">
+            <Download size={18} /> View Resume
+          </a>
+          <a href="#contact" className="btn-outline">
+            Contact Me <ChevronRight size={18} />
+          </a>
+        </motion.div>
+
+        <motion.div
+          className="hero-socials"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.9 }}
+        >
+          {content.socials?.map(s => (
+            <a key={s.id} href={s.href} target="_blank" rel="noopener noreferrer">
+              {getIcon(s.platform)}
+            </a>
+          ))}
+        </motion.div>
+      </div>
+    </div>
+
+    <div className="scroll-indicator">
+      <div className="scroll-line" />
+    </div>
+  </section>
+  );
 };
 
 export default Hero;

@@ -41,7 +41,7 @@ const Footer = () => {
 
         <div className="footer-bottom">
           <div className="footer-copy">
-            &copy; {year} Seth Kipchumba Korir &nbsp;·&nbsp; Made with <Heart size={12} style={{ display: 'inline', color: '#ec4899', fill: '#ec4899' }} /> and React
+            &copy; {year} Seth Kipchumba Korir
           </div>
           <button
             className="scroll-top"

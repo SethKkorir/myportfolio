@@ -12,7 +12,6 @@ async function connectToMongoDB() {
         console.log('Connected to MongoDB using Mongoose');
     } catch (error) {
         console.error('Failed to connect to MongoDB:', error);
-        process.exit(1);
     }
 }
 

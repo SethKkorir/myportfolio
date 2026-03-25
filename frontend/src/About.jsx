@@ -1,48 +1,45 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code, Server, Database, GraduationCap } from 'lucide-react';
+import { Code, Server, Database, GraduationCap, Laptop, Cpu, Globe, Rocket } from 'lucide-react';
 
-const cards = [
+const icons = {
+  Code, Server, Database, GraduationCap, Laptop, Cpu, Globe, Rocket
+};
+
+const DEFAULT_CARDS = [
   {
-    Icon: Code,
+    icon: 'Code',
     title: 'Frontend Development',
     desc: 'Building clean, responsive and interactive UIs using HTML, CSS, JavaScript and React — focused on accessibility and user experience.',
-    tags: ['React', 'JavaScript', 'CSS'],
     span: true,
     color: '#6366f1',
   },
   {
-    Icon: Server,
+    icon: 'Server',
     title: 'Backend Development',
     desc: 'Building RESTful APIs and server-side logic using Node.js and Express, integrated with MongoDB.',
-    tags: [],
     span: false,
     color: '#10b981',
   },
   {
-    Icon: Database,
+    icon: 'Database',
     title: 'Database & APIs',
     desc: 'Designing data schemas with MongoDB and documenting APIs using Postman.',
-    tags: [],
     span: false,
     color: '#f59e0b',
   },
   {
-    Icon: GraduationCap,
+    icon: 'GraduationCap',
     title: 'Always Learning',
     desc: 'Currently deepening my knowledge in Applied Computer Science at Daystar University — bridging academic theory with real-world projects.',
-    tags: [],
     span: true,
-    color: '#ec4899',
-    stats: [
-      { num: '2026', lbl: 'Graduation' },
-      { num: 'MERN', lbl: 'Stack Focus' },
-    ],
+    color: '#ec4899'
   },
 ];
 
 const About = () => {
   const [aboutText, setAboutText] = React.useState("A highly motivated Applied Computer Science student at Daystar University, skilled in the MERN stack, APIs and version control. Passionate about building accessible, user-friendly technology.");
+  const [aboutCards, setAboutCards] = React.useState(DEFAULT_CARDS);
 
   React.useEffect(() => {
     const fetchAbout = async () => {
@@ -50,24 +47,32 @@ const About = () => {
         const res = await fetch('/api/admin/portfolio-content');
         if (res.ok) {
           const data = await res.json();
-          if (data.about?.content) {
-            setAboutText(data.about.content);
-            return;
+          if (data.about) {
+            if (data.about.text) setAboutText(data.about.text);
+            if (data.about.cards && data.about.cards.length > 0) setAboutCards(data.about.cards);
           }
         }
-      } catch (err) {}
-
-      // Fallback
-      const localContent = localStorage.getItem('portfolioContent');
-      if (localContent) {
-        try {
-          const parsed = JSON.parse(localContent);
-          if (parsed.about?.content) setAboutText(parsed.about.content);
-        } catch(e) {}
+      } catch (err) {
+        // Fallback to local storage if backend fails
+        const localContent = localStorage.getItem('portfolioContent');
+        if (localContent) {
+          try {
+            const parsed = JSON.parse(localContent);
+            if (parsed.about) {
+                if (parsed.about.text) setAboutText(parsed.about.text);
+                if (parsed.about.cards) setAboutCards(parsed.about.cards);
+            }
+          } catch(e) {}
+        }
       }
     };
     fetchAbout();
   }, []);
+
+  const getIcon = (iconName) => {
+      const IconComp = icons[iconName] || Code;
+      return <IconComp size={22} />;
+  }
 
   return (
     <section id="about">
@@ -83,7 +88,7 @@ const About = () => {
         </motion.div>
 
       <div className="bento-grid">
-        {cards.map((card, i) => (
+        {aboutCards.map((card, i) => (
           <motion.div
             key={i}
             className={`bento-card ${card.span ? 'span-2' : ''}`}
@@ -93,25 +98,10 @@ const About = () => {
             transition={{ delay: i * 0.08 }}
           >
             <div className="bento-card-icon" style={{ color: card.color, background: `${card.color}15`, border: `1px solid ${card.color}30` }}>
-              <card.Icon size={22} />
+              {getIcon(card.icon)}
             </div>
             <h3>{card.title}</h3>
             <p>{card.desc}</p>
-            {card.tags?.length > 0 && (
-              <div className="tag-row">
-                {card.tags.map(t => <span key={t} className="tag">{t}</span>)}
-              </div>
-            )}
-            {card.stats && (
-              <div style={{ display: 'flex', gap: '1rem', marginTop: '1.25rem' }}>
-                {card.stats.map(s => (
-                  <div key={s.lbl} className="stat-box" style={{ flex: 1 }}>
-                    <div className="num">{s.num}</div>
-                    <div className="lbl">{s.lbl}</div>
-                  </div>
-                ))}
-              </div>
-            )}
           </motion.div>
         ))}
       </div>

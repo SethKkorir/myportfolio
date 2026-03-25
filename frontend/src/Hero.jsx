@@ -81,14 +81,7 @@ const Hero = () => {
 
       <div className="container">
         <div className="hero-inner">
-          <motion.div
-            className="hero-avatar"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.8, ease: 'backOut' }}
-          >
-            <img src="/assets/prof.png" alt={content.name} />
-          </motion.div>
+
 
           <motion.span
             className="hero-tag"

@@ -9,7 +9,7 @@ import {
 const Resume = () => {
   const printRef = useRef(null);
   const [resumeData, setResumeData] = useState(null);
-  const [showPhoto, setShowPhoto] = useState(true);
+  const [showPhoto, setShowPhoto] = useState(false);
 
   useEffect(() => {
     fetch('/api/admin/resume')
@@ -123,24 +123,14 @@ const Resume = () => {
         <a href="/" className="btn-outline" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', fontSize: '0.85rem' }}>
           ← Back to Portfolio
         </a>
-        <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-          <label className="no-print" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', cursor: 'pointer', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-            <input 
-              type="checkbox" 
-              checked={!showPhoto} 
-              onChange={() => setShowPhoto(!showPhoto)} 
-              style={{ accentColor: 'var(--accent)' }}
-            />
-            Professional Mode (Hide Photo)
-          </label>
-          <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', fontWeight: 600 }}>
-            Tip: Save as PDF after choosing mode
-          </span>
+
           <button className="btn-primary" onClick={handlePrint} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 1.25rem' }}>
             <Download size={18} /> Download CV
           </button>
         </div>
-      </div>
+
+
+
 
       {/* ── Resume Document ── */}
       <motion.div
@@ -153,11 +143,7 @@ const Resume = () => {
         {/* LEFT SIDEBAR */}
         <aside className="resume-sidebar">
           {/* Dynamic Avatar */}
-          {showPhoto && (
-            <div className="resume-avatar">
-              <img src="/assets/prof.png" alt={data.name} />
-            </div>
-          )}
+
 
           {/* Contact */}
           <div className="resume-sidebar-section">

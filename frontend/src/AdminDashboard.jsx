@@ -53,8 +53,13 @@ const AdminDashboard = () => {
                 tagline: "Building high-performance, scalable web systems with precision and purpose."
             },
             about: {
-                text: "Motivated and detail-oriented computer science student with hands-on experience in full-stack web development using the MERN stack."
+                text: "Motivated and detail-oriented computer science student with hands-on experience in full-stack web development using the MERN stack.",
+                cards: [
+                    { id: 1, icon: 'Code', title: 'Frontend Development', desc: 'Building clean, responsive and interactive UIs...', span: true, color: '#6366f1' },
+                    { id: 2, icon: 'Server', title: 'Backend Development', desc: 'Building RESTful APIs and server-side logic...', span: false, color: '#10b981' }
+                ]
             },
+
             testimonials: [
                 { id: 1, name: "Dr. James Wilson", role: "Product Head", text: "Seth's attention to detail and ability to solve complex backend problems is outstanding." }
             ],
@@ -81,7 +86,9 @@ const AdminDashboard = () => {
 
     const addPortfolioItem = (section) => {
         const newItem = section === 'testimonials' ? { id: Date.now(), name: '', role: '', text: '' } : 
-                        section === 'socials' ? { id: Date.now(), platform: '', href: '', icon: 'Github' } : {};
+                        section === 'socials' ? { id: Date.now(), platform: '', href: '', icon: 'Github' } : 
+                        section === 'aboutCards' ? { id: Date.now(), icon: 'Code', title: '', desc: '', span: false, color: '#6366f1' } : {};
+
         setPortfolioContent(prev => ({
             ...prev,
             [section]: [...(prev[section] || []), newItem]
@@ -89,17 +96,27 @@ const AdminDashboard = () => {
     };
 
     const updatePortfolioItem = (section, id, field, value) => {
-        setPortfolioContent(prev => ({
-            ...prev,
-            [section]: prev[section].map(item => item.id === id ? { ...item, [field]: value } : item)
-        }));
+        setPortfolioContent(prev => {
+            if (section === 'aboutCards') {
+                return { ...prev, about: { ...prev.about, cards: prev.about.cards.map(item => item.id === id ? { ...item, [field]: value } : item) }};
+            }
+            return {
+                ...prev,
+                [section]: prev[section].map(item => item.id === id ? { ...item, [field]: value } : item)
+            };
+        });
     };
 
     const removePortfolioItem = (section, id) => {
-        setPortfolioContent(prev => ({
-            ...prev,
-            [section]: prev[section].filter(item => item.id !== id)
-        }));
+        setPortfolioContent(prev => {
+            if (section === 'aboutCards') {
+                return { ...prev, about: { ...prev.about, cards: prev.about.cards.filter(item => item.id !== id) }};
+            }
+            return {
+                ...prev,
+                [section]: prev[section].filter(item => item.id !== id)
+            };
+        });
     };
 
     useEffect(() => {
@@ -1038,10 +1055,50 @@ const AdminDashboard = () => {
                                                     <span className="w-8 h-px bg-accent/30"></span>
                                                     About Section
                                                 </h4>
-                                                <div className="space-y-3">
-                                                    <label className="text-[10px] font-black text-text-muted uppercase tracking-widest px-1">Brief Introduction</label>
-                                                    <textarea rows="5" value={portfolioContent.about.text} onChange={e => updateContent('about', 'text', e.target.value)} className="w-full bg-theme-secondary border border-theme p-6 rounded-2xl outline-none focus:border-accent transition-all leading-relaxed"></textarea>
+                                                <div className="space-y-6">
+                                                    <div className="flex justify-between items-center mb-4">
+                                                        <label className="text-[10px] font-black text-text-muted uppercase tracking-widest px-1">Brief Introduction</label>
+                                                        <button onClick={() => addPortfolioItem('aboutCards')} className="p-3 bg-accent/20 text-accent rounded-xl hover:bg-accent hover:text-white transition-all">
+                                                            <Plus size={18} />
+                                                        </button>
+                                                    </div>
+                                                    <textarea rows="4" value={portfolioContent.about.text} onChange={e => updateContent('about', 'text', e.target.value)} className="w-full bg-theme-secondary border border-theme p-6 rounded-2xl outline-none focus:border-accent transition-all leading-relaxed"></textarea>
                                                 </div>
+
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                                                    {portfolioContent.about.cards?.map((card) => (
+                                                        <div key={card.id} className="bg-theme-secondary/50 border border-theme p-6 rounded-[2rem] relative">
+                                                            <button onClick={() => removePortfolioItem('aboutCards', card.id)} className="absolute top-4 right-4 text-red-500/50 hover:text-red-500 transition-colors">
+                                                                <Trash2 size={16} />
+                                                            </button>
+                                                            <div className="space-y-4">
+                                                                <div className="grid grid-cols-2 gap-4">
+                                                                    <div className="space-y-1">
+                                                                        <label className="text-[8px] font-black text-text-muted uppercase tracking-wider">Icon (Lucide)</label>
+                                                                        <input type="text" value={card.icon} onChange={e => updatePortfolioItem('aboutCards', card.id, 'icon', e.target.value)} className="w-full bg-theme-secondary/30 border border-theme p-2 rounded-lg text-xs" />
+                                                                    </div>
+                                                                    <div className="space-y-1">
+                                                                        <label className="text-[8px] font-black text-text-muted uppercase tracking-wider">Accent Color</label>
+                                                                        <input type="color" value={card.color} onChange={e => updatePortfolioItem('aboutCards', card.id, 'color', e.target.value)} className="w-full h-8 bg-transparent border-none p-0 cursor-pointer" />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="space-y-1">
+                                                                    <label className="text-[8px] font-black text-text-muted uppercase tracking-wider">Title</label>
+                                                                    <input type="text" value={card.title} onChange={e => updatePortfolioItem('aboutCards', card.id, 'title', e.target.value)} className="w-full bg-theme-secondary/30 border border-theme p-2 rounded-lg text-xs font-bold" />
+                                                                </div>
+                                                                <div className="space-y-1">
+                                                                    <label className="text-[8px] font-black text-text-muted uppercase tracking-wider">Description</label>
+                                                                    <textarea rows="2" value={card.desc} onChange={e => updatePortfolioItem('aboutCards', card.id, 'desc', e.target.value)} className="w-full bg-theme-secondary/30 border border-theme p-3 rounded-xl text-xs"></textarea>
+                                                                </div>
+                                                                <label className="flex items-center gap-2 cursor-pointer">
+                                                                    <input type="checkbox" checked={card.span} onChange={e => updatePortfolioItem('aboutCards', card.id, 'span', e.target.checked)} className="accent-accent" />
+                                                                    <span className="text-[10px] font-black text-text-muted uppercase tracking-widest">Span 2 Columns</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+
                                             </div>
 
                                             {/* Testimonials / References Section Edit */}

@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
         
         try {
-            const response = await fetch('http://localhost:5000/api/contact', {
+            const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Create a temporary link element
         const link = document.createElement('a');
-        link.href = '/public/CV.docx';
+        link.href = 'CV.docx';
         link.download = 'CV.docx';
         document.body.appendChild(link);
         link.click();

@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const { connectToMongoDB } = require('./models/db');
 const contactRoutes = require('./routes/contactRoutes');
@@ -25,7 +26,9 @@ app.use(cors({
 }));
 
 // Set secure HTTP headers
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false, // Useful for some Vite/CDN setups to avoid CSP issues during testing
+}));
 
 // Apply rate limiting
 const limiter = rateLimit({
@@ -42,7 +45,7 @@ const authLimiter = rateLimit({
 
 const contactLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 5, // Limit each IP to 5 contact messages per hour
+  max: 10, // Limit each IP to 5 contact messages per hour
   message: 'Too many messages sent. Please try again later.'
 });
 
@@ -55,10 +58,33 @@ app.use(bodyParser.json());
 // Connect to MongoDB
 connectToMongoDB();
 
+// Serve static files from 'public' folder
+app.use(express.static(path.join(__dirname, 'public')));
+// Serve static files from 'frontend/dist' folder
+app.use(express.static(path.join(__dirname, 'frontend/dist')));
+
 // Routes
 app.use('/api', contactRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
+
+// Catch-all route to serve the React application or fallback to manual HTML
+app.get('*', (req, res) => {
+  // Try serving React frontend if built
+  const frontendPath = path.join(__dirname, 'frontend/dist', 'index.html');
+  const publicPath = path.join(__dirname, 'public', 'index.html');
+  
+  res.sendFile(frontendPath, (err) => {
+    if (err) {
+      // Fallback to manual public/index.html
+      res.sendFile(publicPath, (err2) => {
+        if (err2) {
+          res.status(404).send('Frontend not found. Please build the project.');
+        }
+      });
+    }
+  });
+});
 
 // Export the app for Vercel
 module.exports = app;

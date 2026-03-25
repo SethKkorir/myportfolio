@@ -58,28 +58,26 @@ app.use(bodyParser.json());
 // Connect to MongoDB
 connectToMongoDB();
 
-// Serve static files from 'public' folder
-app.use(express.static(path.join(__dirname, 'public')));
-// Serve static files from 'frontend/dist' folder
+// Serve static files from 'frontend/dist' folder first (the React app)
 app.use(express.static(path.join(__dirname, 'frontend/dist')));
+// Serve other static files from 'public' folder (images, docs, etc.)
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/api', contactRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 
-// Catch-all route to serve the React application or fallback to manual HTML
+// Catch-all route to serve the React application
 app.get('*', (req, res) => {
-  // Try serving React frontend if built
   const frontendPath = path.join(__dirname, 'frontend/dist', 'index.html');
-  const publicPath = path.join(__dirname, 'public', 'index.html');
-  
   res.sendFile(frontendPath, (err) => {
     if (err) {
-      // Fallback to manual public/index.html
+      // Fallback to manual public/index.html only if React build is missing
+      const publicPath = path.join(__dirname, 'public', 'index.html');
       res.sendFile(publicPath, (err2) => {
         if (err2) {
-          res.status(404).send('Frontend not found. Please build the project.');
+          res.status(404).send('Frontend not found. Please run "npm run build" in the frontend directory.');
         }
       });
     }

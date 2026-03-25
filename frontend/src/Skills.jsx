@@ -4,8 +4,8 @@ import { Code2, Server, Database, Layers, Sparkles } from 'lucide-react';
 
 const DEFAULT_SKILLS = [
   { name: 'HTML / CSS', level: 95, category: 'Frontend' },
-  { name: 'JavaScript (ES6+)', level: 90, category: 'Frontend' },
-  { name: 'React.js', level: 85, category: 'Frontend' },
+  { name: 'JavaScript (ES6+)', level: 50, category: 'Frontend' },
+  { name: 'React.js', level: 40, category: 'Frontend' },
   { name: 'Node.js / Express', level: 80, category: 'Backend' },
   { name: 'REST API Design', level: 85, category: 'Backend' },
   { name: 'MongoDB', level: 75, category: 'Database' },

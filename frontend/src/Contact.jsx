@@ -159,12 +159,12 @@ const Contact = () => {
                 )}
 
                 <button
-                  type="submit"
-                  disabled={status === 'loading'}
+                  type="button"
+                  onClick={(e) => { e.preventDefault(); alert("Coming Soon!"); }}
                   className="btn-primary"
                   style={{ width: '100%', justifyContent: 'center', padding: '1rem' }}
                 >
-                  {status === 'loading' ? 'Sending...' : <><Send size={18} /> Send Message</>}
+                  <Send size={18} /> Send Message
                 </button>
               </form>
             </div>

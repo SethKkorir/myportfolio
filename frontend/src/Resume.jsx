@@ -6,113 +6,116 @@ import {
   Globe, User, Star
 } from 'lucide-react';
 
+const FALLBACK_RESUME = {
+  name: "Seth Kipchumba Korir",
+  title: "Junior Web Developer & Applied Computer Science Student",
+  summary: "A highly motivated and detail-oriented student pursuing a Bachelor’s degree in Applied Computer Science at Daystar University. Skilled in web development with a strong foundation in the MERN stack (MongoDB, Express, Node.js), APIs, and version control using Git. Passionate about creating accessible and user-friendly technologies, I am eager to contribute to innovative projects, collaborate with diverse teams, and further develop my technical expertise.",
+  contact: {
+    email: "zsethkipchumba179@gmail.com",
+    phone: "+254748497623",
+    location: "Bomet, Nairobi, 20400",
+    github: "github.com/SethKkorir",
+    linkedin: "linkedin.com/in/Seth-Kipchumba-Korir"
+  },
+  experience: [
+    {
+      role: "Attachment Trainee",
+      org: "Techsavanna Company Limited (Software solutions)",
+      time: "2024",
+      points: [
+        "Gained hands-on experience in developing REST APIs and integrating them into web applications.",
+        "Collaborated with a team of developers to design, develop, and test backend systems.",
+        "Enhanced skills in team collaboration, version control (Git), and API documentation using tools like Postman.",
+        "Contributed to the development of scalable and efficient backend solutions."
+      ]
+    }
+  ],
+  education: [
+    { degree: "Bachelor of Applied Computer Science", school: "Daystar University", time: "2024 – Present" },
+    { degree: "Diploma in ICT", school: "Daystar University", time: "2023 – 2024" },
+    { degree: "Certificate in ICT", school: "Daystar University", time: "May- 2022 to Nov-2022" },
+    { degree: "Kenya Certificate of Secondary Education (KCSE)", school: "Koibeiyon Secondary School", time: "2018 – 2021" }
+  ],
+  skills: {
+    frontend: ["HTML", "CSS", "JavaScript", "React"],
+    backend: ["Node.js", "Express", "MongoDB", "REST APIs"],
+    tools: ["Git", "Postman", "VS Code", "Poster Design"]
+  },
+  projects: [
+    {
+      name: "Rerendet Coffee – Digital Brand Platform",
+      tech: "HTML | CSS | JavaScript | React.js (Learning) | MERN (In Progress)",
+      desc: "Designed and developed a modern coffee brand website to simulate a real-world business digital presence. Built the initial version using HTML, CSS, and JavaScript, then began transitioning to React.js for component-based development. Currently learning and applying React.js concepts including components, props, and state management. Developing backend functionality using Node.js and Express as part of a MERN stack architecture. Focused on responsive design, performance, and clean UI/UX.",
+      link: "https://rerendet-website-two.vercel.app/"
+    }
+  ],
+  referees: [
+    {
+      name: "Zipporah Mwololo",
+      role: "Head of Department, School of Science, Health, and Engineering",
+      org: "Daystar University",
+      contact: "Phone: +254716372466 | Email: zmwololo@daystar.ac.ke"
+    }
+  ]
+};
+
 const Resume = () => {
   const printRef = useRef(null);
-  const [resumeData, setResumeData] = useState(null);
+  const [resumeData, setResumeData] = useState(() => {
+    const cached = localStorage.getItem('resumeJSON');
+    if (cached) {
+        try {
+            const parsed = JSON.parse(cached);
+            if (Object.keys(parsed).length > 2) return parsed;
+        } catch(e) {}
+    }
+    return FALLBACK_RESUME;
+  });
   const [showPhoto, setShowPhoto] = useState(false);
 
   useEffect(() => {
     fetch('/api/admin/resume')
-      .then(res => {
-        if (!res.ok) throw new Error('API Offline');
-        return res.json();
-      })
+      .then(res => res.ok ? res.json() : Promise.reject('Offline'))
       .then(fetchedData => {
-        setResumeData(fetchedData);
-      })
-      .catch(err => {
-        console.warn('Backend offline, checking local storage...', err);
-        const localData = localStorage.getItem('resumeJSON');
-        if (localData) {
-          try {
-            setResumeData(JSON.parse(localData));
-            return;
-          } catch(e) { console.error('Local JSON corrupt'); }
-        }
+        let single = Array.isArray(fetchedData) ? fetchedData[0] : fetchedData;
         
-        setResumeData({
-          name: "Seth Kipchumba Korir",
-          title: "Junior Web Developer & Applied Computer Science Student",
-          summary: "A highly motivated and detail-oriented student pursuing a Bachelor’s degree in Applied Computer Science at Daystar University. Skilled in web development with a strong foundation in the MERN stack (MongoDB, Express, Node.js), APIs, and version control using Git. Passionate about creating accessible and user-friendly technologies, I am eager to contribute to innovative projects, collaborate with diverse teams, and further develop my technical expertise.",
-          contact: {
-            email: "zsethkipchumba179@gmail.com",
-            phone: "+254748497623",
-            location: "Bomet, Nairobi, 20400",
-            github: "github.com/SethKkorir",
-            linkedin: "linkedin.com/in/Seth-Kipchumba-Korir"
-          },
-          experience: [
-            {
-              role: "Attachment Trainee",
-              org: "Techsavanna Company Limited (Software solutions)",
-              time: "2024",
-              points: [
-                "Gained hands-on experience in developing REST APIs and integrating them into web applications.",
-                "Collaborated with a team of developers to design, develop, and test backend systems.",
-                "Enhanced skills in team collaboration, version control (Git), and API documentation using tools like Postman.",
-                "Contributed to the development of scalable and efficient backend solutions."
-              ]
-            }
-          ],
-          education: [
-            {
-              degree: "Bachelor of Applied Computer Science",
-              school: "Daystar University",
-              time: "2024 – Present"
-            },
-            {
-              degree: "Diploma in Information Communication and Technology",
-              school: "Daystar University",
-              time: "2023 – 2024"
-            },
-            {
-              degree: "Certificate in Information Communication and Technology",
-              school: "Daystar University",
-              time: "2022"
-            },
-            {
-              degree: "Kenya Certificate of Secondary Education (KCSE)",
-              school: "Koibeiyon Secondary School",
-              time: "2018 – 2021"
-            }
-          ],
-          skills: {
-            frontend: ["HTML", "CSS", "JavaScript", "React"],
-            backend: ["Node.js", "Express", "MongoDB", "REST APIs"],
-            tools: ["Git", "Postman", "VS Code", "Poster Design"]
-          },
-          projects: [
-            {
-              name: "Rerendet Coffee Platform",
-              tech: "React · Node.js · Express · MongoDB",
-              desc: "Full-stack MERN application for showcasing coffee products, managing orders, and delivering a seamless digital customer experience.",
-              link: "#"
-            }
-          ],
-          referees: [
-            {
-              name: "Zipporah Mwololo",
-              role: "Head of Department, School of Science, Health, and Engineering",
-              org: "Daystar University",
-              contact: "Phone: +254716372466 | Email: zmwololo@daystar.ac.ke"
-            }
-          ]
-        });
-      });
+        // Strict verification: only update if the server data is actually populated
+        // This prevents overwriting the fallback with an empty "new" document
+        const hasWork = single?.experience?.length > 0;
+        const hasProjects = single?.projects?.length > 0;
+        const hasEducation = single?.education?.length > 0;
+
+        if (single && single.name && (hasWork || hasProjects || hasEducation)) {
+            setResumeData(single);
+            localStorage.setItem('resumeJSON', JSON.stringify(single));
+        }
+      })
+      .catch(err => console.warn('Syncing with live backend failed, keeping current data.', err));
   }, []);
 
   const handlePrint = () => window.print();
 
   if (!resumeData) return <div className="min-h-screen bg-bg-main flex items-center justify-center text-accent">Loading resume...</div>;
   
-  // Safe-guards for array mapping just in case backend data is missing properties
+  // Extended Safe-guards for rendering safety
+  const ensureArray = (val) => {
+    if (Array.isArray(val)) return val;
+    if (typeof val === 'string') return val.split(',').map(s => s.trim()).filter(s => s !== '');
+    return [];
+  };
+
   const data = {
     ...resumeData,
     contact: resumeData.contact || {},
-    skills: resumeData.skills || { frontend: [], backend: [], tools: [] },
-    experience: resumeData.experience || [],
+    skills: {
+        frontend: ensureArray(resumeData.skills?.frontend),
+        backend: ensureArray(resumeData.skills?.backend),
+        tools: ensureArray(resumeData.skills?.tools)
+    },
+    experience: (resumeData.experience || []).map(e => ({ ...e, points: ensureArray(e.points) })),
     education: resumeData.education || [],
-    projects: resumeData.projects || []
+    projects: resumeData.projects || [],
+    referees: resumeData.referees || []
   };
 
 
@@ -233,7 +236,7 @@ const Resume = () => {
                   <span className="resume-entry-time">{exp.time}</span>
                 </div>
                 <ul className="resume-entry-list">
-                  {exp.points.map((p, j) => (
+                  {(exp.points || []).map((p, j) => (
                     <li key={j}>
                       <ChevronRight size={13} className="resume-entry-icon" />
                       {p}

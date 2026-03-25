@@ -9,28 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'bg-main': 'var(--bg-main)',
-            'bg-secondary': 'var(--bg-secondary)',
-            'bg-card': 'var(--bg-card)',
-            'accent': 'var(--accent)',
-            'accent-secondary': 'var(--accent-secondary)',
-            'text-primary': 'var(--text-primary)',
-            'text-secondary': 'var(--text-secondary)',
-            'text-muted': 'var(--text-muted)',
-            'border-theme': 'var(--border-subtle)',
-          },
-          fontFamily: {
-            heading: ['Outfit', 'sans-serif'],
-            sans: ['Plus Jakarta Sans', 'sans-serif']
-          }
-        }
-      }
+    // Fix for "exports is not defined" error in some CJS-based libraries in the browser
+    if (typeof global === 'undefined') {
+      var global = window;
+    }
+    if (typeof exports === 'undefined') {
+      var exports = {};
     }
   </script>
 </head>

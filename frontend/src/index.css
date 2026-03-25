@@ -1,4 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Fonts are now imported in index.html as <link> tags to avoid Parcel network timeouts */
+
 
 html {
   scroll-behavior: smooth;

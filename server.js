@@ -70,6 +70,15 @@ app.use('/api/admin', adminRoutes);
 
 // Catch-all route to serve the React application
 app.get('*', (req, res) => {
+  // 1. If the request has a file extension (like .css, .js, .png), and static serving missed it, it's a 404.
+  //    This prevents returning HTML when a stylesheet is expected (fixing the MIME type error).
+  if (path.extname(req.url)) {
+    return res.status(404).send('Not Found');
+  }
+
+  // 2. Set Cache-Control for index.html to ensure fresh versions are always loaded
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+
   const frontendPath = path.join(__dirname, 'frontend/dist', 'index.html');
   res.sendFile(frontendPath, (err) => {
     if (err) {

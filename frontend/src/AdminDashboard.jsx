@@ -498,131 +498,154 @@ const AdminDashboard = () => {
         { id: 'settings', label: 'Protocol', Icon: Settings, desc: 'Global Config' }
     ];
 
-    return (
-        <main className="min-h-screen bg-[#050506] text-[#e1e1e3] font-main relative overflow-hidden flex selection:bg-accent/30">
-            {/* Ultra-High Detail Background */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,_rgba(99,102,241,0.05)_0%,_transparent_50%)] pointer-events-none"></div>
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/pinstripe-dark.png')] opacity-10 pointer-events-none"></div>
-            <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-accent/20 to-transparent"></div>
+        return (
+        <div className="admin-dashboard-layout">
             
-            {/* ── HYPER-SIDEBAR ── */}
-            <aside className={`fixed inset-y-0 left-0 w-[300px] border-r border-white/5 bg-[#08080a]/80 backdrop-blur-3xl flex flex-col z-[60] transition-all duration-700 ease-[0.16, 1, 0.3, 1] lg:sticky lg:translate-x-0 ${isMobileMenuOpen ? 'translate-x-0 ml-0' : '-translate-x-full -ml-[300px] lg:ml-0'}`}>
-                
-                {/* Brand Identity */}
-                <div className="p-10 mb-8">
-                    <div className="flex items-center gap-5 group cursor-pointer" onClick={() => setActiveTab('projects')}>
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-accent/30 blur-2xl rounded-full scale-150 group-hover:bg-accent/50 transition-all duration-500"></div>
-                            <div className="w-14 h-14 bg-gradient-to-br from-accent to-[#4338ca] rounded-2xl flex items-center justify-center shadow-[0_0_30px_rgba(99,102,241,0.4)] relative border border-white/20 group-hover:rotate-[360deg] transition-transform duration-1000">
-                                <LayoutDashboard size={24} className="text-white" />
-                            </div>
-                        </div>
-                        <div className="space-y-0.5">
-                            <h1 className="text-2xl font-black tracking-tighter uppercase italic leading-none text-white drop-shadow-sm">Seth<span className="text-accent">X</span></h1>
-                            <p className="text-[8px] font-black text-white/30 uppercase tracking-[0.5em] mt-1">Core Terminal</p>
-                        </div>
-                    </div>
-                </div>
+            {/* ── REDESIGNED PREMIUM SIDEBAR ── */}
+            <aside className="admin-sidebar-premium">
+                {/* Brand Identity Logo */}
+                <div className="admin-sidebar-logo">SK</div>
 
-                {/* Vertical Navigation */}
-                <nav className="flex-1 px-6 space-y-2 overflow-y-auto custom-scrollbar pt-4">
-                    <p className="px-4 mb-4 text-[8px] font-black text-white/10 uppercase tracking-[0.6em]">Navigation Protocol</p>
-                    {navItems.map((tab) => (
-                        <button
-                            key={tab.id}
-                            onClick={() => { setActiveTab(tab.id); setIsMobileMenuOpen(false); }}
-                            className={`w-full flex items-center gap-5 px-6 py-4 rounded-2xl font-black uppercase transition-all duration-500 group relative overflow-hidden ${
-                                activeTab === tab.id 
-                                    ? 'bg-accent/5 text-accent border border-accent/20 shadow-[0_10px_30px_rgba(0,0,0,0.2)]' 
-                                    : 'text-white/20 hover:bg-white/[0.03] hover:text-white/60 border border-transparent'
-                            }`}
-                        >
-                            {activeTab === tab.id && (
-                                <motion.div layoutId="navGlow" className="absolute inset-0 bg-gradient-to-r from-accent/10 to-transparent -z-10" />
-                            )}
-                            <tab.Icon size={18} strokeWidth={2.5} className={activeTab === tab.id ? 'opacity-100 scale-110 drop-shadow-[0_0_8px_rgba(99,102,241,0.8)]' : 'opacity-40 group-hover:opacity-100 transition-all'} />
-                            <div className="text-left">
-                                <span className="block text-[10px] tracking-[0.3em] leading-none">{tab.label}</span>
-                                <span className="block text-[7px] text-white/20 font-medium tracking-[0.1em] mt-1.5 opacity-0 group-hover:opacity-100 transition-all uppercase">{tab.desc}</span>
-                            </div>
-                        </button>
-                    ))}
-                </nav>
-
-                {/* Session Controls */}
-                <div className="p-8 border-t border-white/5 mt-auto">
+                {/* Sidebar Navigation Menu */}
+                <div className="admin-sidebar-menu">
                     <button 
-                        onClick={logout} 
-                        className="w-full flex items-center justify-between px-6 py-5 rounded-2xl bg-[#0d0d0f] border border-white/5 font-black uppercase text-[9px] tracking-[0.3em] text-red-500/40 hover:bg-red-500/10 hover:text-red-500 hover:border-red-500/20 transition-all duration-500 group"
+                        type="button" 
+                        onClick={() => setActiveTab('dashboard')} 
+                        className={`admin-sidebar-item ${activeTab === 'dashboard' ? 'active' : ''}`}
                     >
-                        <div className="flex items-center gap-4">
-                            <LogOut size={16} /> 
-                            <span>End Session</span>
-                        </div>
-                        <div className="w-1.5 h-1.5 rounded-full bg-red-500/20 group-hover:bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.2)]"></div>
+                        <LayoutDashboard size={18} />
+                        <span>Dashboard</span>
+                    </button>
+
+                    <button 
+                        type="button" 
+                        onClick={() => setActiveTab('projects')} 
+                        className={`admin-sidebar-item ${activeTab === 'projects' ? 'active' : ''}`}
+                    >
+                        <Monitor size={18} />
+                        <span>Projects</span>
+                    </button>
+
+                    <button 
+                        type="button" 
+                        onClick={() => setActiveTab('skills')} 
+                        className={`admin-sidebar-item ${activeTab === 'skills' ? 'active' : ''}`}
+                    >
+                        <Cpu size={18} />
+                        <span>Skills</span>
+                    </button>
+
+                    <button 
+                        type="button" 
+                        onClick={() => setActiveTab('resume')} 
+                        className={`admin-sidebar-item ${activeTab === 'resume' ? 'active' : ''}`}
+                    >
+                        <FileText size={18} />
+                        <span>Resume</span>
+                    </button>
+
+                    <button 
+                        type="button" 
+                        onClick={() => setActiveTab('coverletter')} 
+                        className={`admin-sidebar-item ${activeTab === 'coverletter' ? 'active' : ''}`}
+                    >
+                        <Send size={18} />
+                        <span>Cover Letter</span>
+                    </button>
+
+                    <button 
+                        type="button" 
+                        onClick={() => showMessage('Blog Posts inventory is fully synchronized.')} 
+                        className="admin-sidebar-item"
+                    >
+                        <FileText size={18} />
+                        <span>Blog Posts</span>
+                    </button>
+
+                    <button 
+                        type="button" 
+                        onClick={() => showMessage('All incoming contact logs are direct-routed to your email inbox.')} 
+                        className="admin-sidebar-item"
+                    >
+                        <Mail size={18} />
+                        <span>Contact Messages</span>
+                    </button>
+
+                    <button 
+                        type="button" 
+                        onClick={() => setActiveTab('content')} 
+                        className={`admin-sidebar-item ${activeTab === 'content' ? 'active' : ''}`}
+                    >
+                        <Briefcase size={18} />
+                        <span>Portfolio Content</span>
+                    </button>
+
+                    <button 
+                        type="button" 
+                        onClick={() => showMessage('System Users: sethkorir@admin.com (Root Auth)')} 
+                        className="admin-sidebar-item"
+                    >
+                        <Users size={18} />
+                        <span>Users</span>
+                    </button>
+
+                    <button 
+                        type="button" 
+                        onClick={() => setActiveTab('settings')} 
+                        className={`admin-sidebar-item ${activeTab === 'settings' ? 'active' : ''}`}
+                    >
+                        <Settings size={18} />
+                        <span>Settings</span>
+                    </button>
+
+                    <button 
+                        type="button" 
+                        onClick={logout} 
+                        className="admin-sidebar-item"
+                        style={{ marginTop: '2rem', color: '#ef4444' }}
+                    >
+                        <LogOut size={18} />
+                        <span>Logout</span>
                     </button>
                 </div>
             </aside>
 
-            {/* Hyper-Overlay */}
-            {isMobileMenuOpen && (
-                <div 
-                    className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 lg:hidden"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                />
-            )}
-
-            {/* ── WORKSPACE CORE ── */}
-            <div className="flex-1 flex flex-col h-screen overflow-hidden relative">
+            {/* ── WORKSPACE CORE MAIN CONTENT ── */}
+            <div className="admin-dashboard-main">
                 
-                {/* Cinematic Header */}
-                <header className="h-[100px] border-b border-white/5 bg-[#050506]/40 backdrop-blur-2xl flex justify-between items-center px-10 lg:px-16 z-40 sticky top-0 shrink-0">
-                    <div className="flex items-center gap-8">
-                        <button onClick={() => setIsMobileMenuOpen(true)} className="lg:hidden w-12 h-12 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-white/40 hover:text-accent transition-all">
-                             <LayoutDashboard size={20} />
-                        </button>
-                        
-                        <div className="flex flex-col">
-                            <div className="flex items-center gap-3">
-                                <div className="h-1 w-1 rounded-full bg-accent animate-ping"></div>
-                                <h2 className="text-[8px] font-black uppercase tracking-[0.6em] text-white/20 italic">Node Status: Operational</h2>
-                            </div>
-                            <h3 className="text-2xl lg:text-3xl font-black tracking-tighter uppercase italic leading-tight text-white/90">
-                                {activeTab.replace(/([A-Z])/g, ' $1')}
-                            </h3>
-                        </div>
+                {/* Redesigned Minimal Header */}
+                <header className="admin-dashboard-header">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                        <span style={{ fontSize: '1.25rem', fontWeight: 850, color: 'var(--accent)' }}>SK</span>
+                        <span style={{ color: 'rgba(255,255,255,0.15)' }}>|</span>
+                        <span style={{ fontSize: '0.95rem', fontWeight: 700, color: 'white', letterSpacing: '-0.3px' }}>Admin Dashboard</span>
                     </div>
                     
-                    <div className="flex items-center gap-10">
-                        {/* System Tickers */}
-                        <div className="hidden xl:flex items-center gap-12">
-                            <div className="space-y-1">
-                                <p className="text-[7px] font-black text-white/10 uppercase tracking-[0.4em]">Latency</p>
-                                <p className="text-[10px] font-black text-accent italic">14ms <span className="text-white/20 font-medium">Standard</span></p>
-                            </div>
-                            <div className="space-y-1">
-                                <p className="text-[7px] font-black text-white/10 uppercase tracking-[0.4em]">Encryption</p>
-                                <p className="text-[10px] font-black text-green-500/60 italic underline decoration-green-500/20 underline-offset-4">AES-256</p>
-                            </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '18px', height: '18px', color: 'rgba(255,255,255,0.4)', cursor: 'pointer' }}>
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+
+                        <div style={{ position: 'relative', cursor: 'pointer' }}>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '18px', height: '18px', color: 'rgba(255,255,255,0.4)' }}>
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                            </svg>
+                            <span style={{ position: 'absolute', top: '-2px', right: '-2px', width: '6px', height: '6px', borderRadius: '50%', background: '#ef4444' }}></span>
                         </div>
 
-                        <div className="flex items-center gap-6 pl-10 border-l border-white/5">
-                            <div className="text-right hidden sm:block">
-                                <p className="text-[11px] font-black tracking-tight text-white uppercase italic">S. Kipchumba</p>
-                                <span className="bg-accent/10 text-accent px-3 py-1 rounded-lg text-[7px] font-black uppercase tracking-[0.2em] mt-2 inline-block">Root Auth</span>
-                            </div>
-                            <div className="relative group">
-                                <div className="absolute inset-0 bg-accent/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                <div className="w-14 h-14 rounded-2xl bg-[#0d0d0f] border border-white/10 flex items-center justify-center p-0.5 shadow-2xl relative overflow-hidden group-hover:border-accent/40 transition-colors">
-                                    <div className="w-full h-full bg-gradient-to-br from-white/[0.05] to-transparent flex items-center justify-center text-accent font-black text-sm italic">SK</div>
-                                </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', paddingLeft: '1.25rem', borderLeft: '1px solid rgba(255,255,255,0.06)' }}>
+                            <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'rgba(255,255,255,0.7)' }}>Admin User</span>
+                            <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justify: 'center', fontSize: '0.75rem', fontWeight: 800, color: 'var(--accent)' }}>
+                                AU
                             </div>
                         </div>
                     </div>
                 </header>
 
-                {/* Infinite Scroll Surface */}
-                <div className="flex-1 overflow-y-auto custom-scrollbar-minimal scroll-smooth selection:bg-accent/10">
+                {/* Dashboard Inner Body */}
+                <div className="admin-dashboard-body">
                     <div className="p-8 lg:p-20 max-w-[1500px] mx-auto space-y-20 pb-40">
                         
                         <AnimatePresence>
@@ -1616,7 +1639,7 @@ const AdminDashboard = () => {
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 );
 };
 

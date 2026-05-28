@@ -24,6 +24,7 @@ const Hero = () => {
   React.useEffect(() => {
     const fetchContent = async () => {
       try {
+        // 1. Fetch main portfolio content for socials & testimonials
         const res = await fetch('/api/admin/portfolio-content');
         if (res.ok) {
           const data = await res.json();
@@ -36,16 +37,48 @@ const Hero = () => {
               socials: data.socials || prev.socials
             }));
           }
+          if (Array.isArray(data.testimonials)) {
+            setStats(prev => ({
+              ...prev,
+              clients: `${data.testimonials.length}+`
+            }));
+          }
         }
 
-        // Fetch projects count dynamically for stats
+        // 2. Fetch projects count dynamically for stats
         const projRes = await fetch('/api/admin/projects');
         if (projRes.ok) {
           const projs = await projRes.json();
-          if (Array.isArray(projs) && projs.length > 0) {
+          if (Array.isArray(projs)) {
             setStats(prev => ({
               ...prev,
               projects: `${projs.length}+`
+            }));
+          }
+        }
+
+        // 3. Fetch skills count dynamically for stats
+        const skillRes = await fetch('/api/admin/skills');
+        if (skillRes.ok) {
+          const skillsList = await skillRes.json();
+          if (Array.isArray(skillsList)) {
+            setStats(prev => ({
+              ...prev,
+              technologies: `${skillsList.length}+`
+            }));
+          }
+        }
+
+        // 4. Fetch resume years/entries dynamically for stats
+        const resumeRes = await fetch('/api/admin/resume');
+        if (resumeRes.ok) {
+          let resumeData = await resumeRes.json();
+          if (Array.isArray(resumeData)) resumeData = resumeData[0] || {};
+          if (Array.isArray(resumeData.experience)) {
+            const expYears = Math.max(1, resumeData.experience.length);
+            setStats(prev => ({
+              ...prev,
+              experience: `${expYears}+`
             }));
           }
         }
@@ -62,6 +95,51 @@ const Hero = () => {
                 name: parsed.hero.name || prev.name,
                 tagline: parsed.hero.tagline || prev.tagline,
                 socials: parsed.socials || prev.socials
+              }));
+            }
+            if (Array.isArray(parsed.testimonials)) {
+              setStats(prev => ({
+                ...prev,
+                clients: `${parsed.testimonials.length}+`
+              }));
+            }
+          } catch(err) {}
+        }
+        
+        const cachedSkills = localStorage.getItem('localSkills');
+        if (cachedSkills) {
+          try {
+            const parsed = JSON.parse(cachedSkills);
+            if (Array.isArray(parsed)) {
+              setStats(prev => ({
+                ...prev,
+                technologies: `${parsed.length}+`
+              }));
+            }
+          } catch(err) {}
+        }
+
+        const cachedProjects = localStorage.getItem('localProjects');
+        if (cachedProjects) {
+          try {
+            const parsed = JSON.parse(cachedProjects);
+            if (Array.isArray(parsed)) {
+              setStats(prev => ({
+                ...prev,
+                projects: `${parsed.length}+`
+              }));
+            }
+          } catch(err) {}
+        }
+
+        const cachedResume = localStorage.getItem('resumeJSON');
+        if (cachedResume) {
+          try {
+            const parsed = JSON.parse(cachedResume);
+            if (Array.isArray(parsed.experience)) {
+              setStats(prev => ({
+                ...prev,
+                experience: `${Math.max(1, parsed.experience.length)}+`
               }));
             }
           } catch(err) {}

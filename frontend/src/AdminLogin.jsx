@@ -26,73 +26,130 @@ const AdminLogin = () => {
                 localStorage.setItem('token', data.token);
                 navigate('/admin');
             } else {
-                setError(data.message || 'Invalid email or password.');
+                setError(data.message || 'Wrong email or password.');
             }
         } catch (err) {
-            setError('Server unreachable. Please try again later.');
+            setError('Server connection failure. Please try again.');
         } finally {
             setIsLoading(false);
         }
     };
 
     return (
-        <main className="min-h-screen bg-[#030014] flex flex-col items-center justify-center p-6 font-main">
-            <div className="w-full max-w-[400px] bg-[#0c0a24]/60 border border-white/5 p-8 rounded-2xl shadow-2xl">
+        <main className="min-h-screen bg-[#f0f4f9] flex items-center justify-center p-4 font-main">
+            <div className="w-full max-w-[448px] bg-white border border-[#e0e0e0] p-10 rounded-[28px] shadow-sm flex flex-col gap-8">
                 
-                {/* Header */}
-                <div className="text-center mb-8">
-                    <h1 className="text-2xl font-bold tracking-tight text-white mb-2">Admin Login</h1>
-                    <p className="text-xs text-gray-400">Enter your credentials to access the panel</p>
+                {/* Brand / Logo */}
+                <div className="flex flex-col items-start gap-4">
+                    <div style={{ fontFamily: "'Product Sans', 'Google Sans', Arial, sans-serif", fontSize: '26px', fontWeight: 'bold', letterSpacing: '-0.5px' }}>
+                        <span style={{ color: '#4285F4' }}>S</span>
+                        <span style={{ color: '#EA4335' }}>K</span>
+                        <span style={{ color: '#FBBC05' }}>.</span>
+                        <span style={{ color: '#34A853' }}>a</span>
+                        <span style={{ color: '#4285F4' }}>d</span>
+                        <span style={{ color: '#EA4335' }}>m</span>
+                        <span style={{ color: '#34A853' }}>i</span>
+                        <span style={{ color: '#FBBC05' }}>n</span>
+                    </div>
+
+                    <div className="text-left">
+                        <h1 className="text-2xl font-normal text-[#1f1f1f] m-0">Sign in</h1>
+                        <p className="text-[#444746] text-base mt-2 m-0">to continue to SethX Core</p>
+                    </div>
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="space-y-2">
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider ml-1">Email Address</label>
-                        <input 
-                            type="email" 
-                            required
-                            placeholder="admin@example.com"
-                            value={credentials.email}
-                            onChange={e => setCredentials({ ...credentials, email: e.target.value })}
-                            className="w-full bg-[#030014] border border-white/5 px-4 py-3 rounded-xl outline-none focus:border-[var(--accent)] text-white placeholder:text-gray-600 transition-colors"
-                        />
-                    </div>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                    <div className="flex flex-col gap-4">
+                        
+                        {/* Email Input */}
+                        <div className="flex flex-col gap-1.5">
+                            <input 
+                                type="email" 
+                                required
+                                placeholder="Email address"
+                                value={credentials.email}
+                                onChange={e => setCredentials({ ...credentials, email: e.target.value })}
+                                style={{
+                                    width: '100%',
+                                    background: '#ffffff',
+                                    border: '1px solid #747775',
+                                    borderRadius: '4px',
+                                    padding: '16px',
+                                    fontSize: '16px',
+                                    color: '#1f1f1f',
+                                    outline: 'none',
+                                    transition: 'border-color 0.2s'
+                                }}
+                                onFocus={(e) => e.target.style.borderColor = '#0b57d0'}
+                                onBlur={(e) => e.target.style.borderColor = '#747775'}
+                            />
+                        </div>
 
-                    <div className="space-y-2">
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider ml-1">Password</label>
-                        <input 
-                            type="password" 
-                            required
-                            placeholder="••••••••"
-                            value={credentials.password}
-                            onChange={e => setCredentials({ ...credentials, password: e.target.value })}
-                            className="w-full bg-[#030014] border border-white/5 px-4 py-3 rounded-xl outline-none focus:border-[var(--accent)] text-white placeholder:text-gray-600 transition-colors"
-                        />
+                        {/* Password Input */}
+                        <div className="flex flex-col gap-1.5">
+                            <input 
+                                type="password" 
+                                required
+                                placeholder="Enter password"
+                                value={credentials.password}
+                                onChange={e => setCredentials({ ...credentials, password: e.target.value })}
+                                style={{
+                                    width: '100%',
+                                    background: '#ffffff',
+                                    border: '1px solid #747775',
+                                    borderRadius: '4px',
+                                    padding: '16px',
+                                    fontSize: '16px',
+                                    color: '#1f1f1f',
+                                    outline: 'none',
+                                    transition: 'border-color 0.2s'
+                                }}
+                                onFocus={(e) => e.target.style.borderColor = '#0b57d0'}
+                                onBlur={(e) => e.target.style.borderColor = '#747775'}
+                            />
+                        </div>
+
                     </div>
 
                     {error && (
-                        <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-semibold rounded-xl text-center">
+                        <div className="text-[#b3261e] text-sm font-medium">
                             {error}
                         </div>
                     )}
 
-                    <button 
-                        type="submit" 
-                        disabled={isLoading}
-                        className="w-full py-3 bg-[var(--accent)] hover:bg-[#4f46e5] text-white font-bold rounded-xl text-sm transition-all shadow-[0_4px_20px_rgba(99,102,241,0.2)] disabled:opacity-50"
-                    >
-                        {isLoading ? 'Signing In...' : 'Sign In'}
-                    </button>
-                </form>
+                    {/* Bottom Actions Row */}
+                    <div className="flex justify-between items-center mt-4">
+                        <a 
+                            href="/" 
+                            className="inline-flex items-center gap-1 text-sm font-semibold text-[#0b57d0] hover:underline"
+                        >
+                            Return to site
+                        </a>
 
-                {/* Back to Site */}
-                <div className="mt-6 text-center">
-                    <a href="/" className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-white transition-colors">
-                        <ChevronLeft size={16} />
-                        Return to site
-                    </a>
-                </div>
+                        <button 
+                            type="submit" 
+                            disabled={isLoading}
+                            style={{
+                                background: '#0b57d0',
+                                color: '#ffffff',
+                                border: 'none',
+                                borderRadius: '100px',
+                                padding: '10px 24px',
+                                fontSize: '14px',
+                                fontWeight: '600',
+                                cursor: 'pointer',
+                                transition: 'background-color 0.2s'
+                            }}
+                            onMouseOver={(e) => e.target.style.backgroundColor = '#0842a0'}
+                            onMouseOut={(e) => e.target.style.backgroundColor = '#0b57d0'}
+                            className="disabled:opacity-50"
+                        >
+                            {isLoading ? 'Signing In...' : 'Sign In'}
+                        </button>
+                    </div>
+
+                </form>
 
             </div>
         </main>

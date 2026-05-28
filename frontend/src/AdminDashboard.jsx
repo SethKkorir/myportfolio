@@ -9,7 +9,7 @@ import {
 import jsPDF from 'jspdf';
 
 const AdminDashboard = () => {
-    const [activeTab, setActiveTab] = useState('projects');
+    const [activeTab, setActiveTab] = useState('dashboard');
     const [theme, setTheme] = useState(localStorage.getItem('admin-theme') || 'dark');
     const [projects, setProjects] = useState([]);
     const [skills, setSkills] = useState([]);
@@ -489,6 +489,7 @@ const AdminDashboard = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const navItems = [
+        { id: 'dashboard', label: 'Dashboard', Icon: LayoutDashboard, desc: 'Overview Metrics' },
         { id: 'projects', label: 'Systems', Icon: Monitor, desc: 'Project Inventory' },
         { id: 'skills', label: 'Matrix', Icon: Cpu, desc: 'Technical Stack' },
         { id: 'resume', label: 'Identity', Icon: FileText, desc: 'Professional Bio' },
@@ -647,6 +648,130 @@ const AdminDashboard = () => {
 
                         <div className="max-w-[1300px]">
                             <AnimatePresence mode="wait">
+                                {activeTab === 'dashboard' && (
+                                <motion.div 
+                                    key="dashboard"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -20 }}
+                                    className="space-y-12"
+                                >
+                                    {/* Stats Counter Row */}
+                                    <div className="admin-stats-row">
+                                        <div className="admin-stat-card">
+                                            <div className="admin-stat-card-left">
+                                                <span className="admin-stat-card-title">Total Projects</span>
+                                                <span className="admin-stat-card-value">{projects.length}</span>
+                                            </div>
+                                            <div className="admin-stat-card-icon"><Monitor size={22} /></div>
+                                        </div>
+
+                                        <div className="admin-stat-card">
+                                            <div className="admin-stat-card-left">
+                                                <span className="admin-stat-card-title">Messages</span>
+                                                <span className="admin-stat-card-value">0</span>
+                                            </div>
+                                            <div className="admin-stat-card-icon"><Send size={22} /></div>
+                                        </div>
+
+                                        <div className="admin-stat-card">
+                                            <div className="admin-stat-card-left">
+                                                <span className="admin-stat-card-title">Blog Posts</span>
+                                                <span className="admin-stat-card-value">0</span>
+                                            </div>
+                                            <div className="admin-stat-card-icon"><FileText size={22} /></div>
+                                        </div>
+
+                                        <div className="admin-stat-card">
+                                            <div className="admin-stat-card-left">
+                                                <span className="admin-stat-card-title">Skills</span>
+                                                <span className="admin-stat-card-value">{skills.length}</span>
+                                            </div>
+                                            <div className="admin-stat-card-icon"><Cpu size={22} /></div>
+                                        </div>
+                                    </div>
+
+                                    {/* Main Two-Column Layout */}
+                                    <div className="admin-dashboard-grid">
+                                        
+                                        {/* Left Panel: Recent Messages */}
+                                        <div className="admin-panel">
+                                            <h3 className="admin-panel-title">Recent Messages</h3>
+                                            
+                                            <div style={{ overflowX: 'auto' }}>
+                                                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                                                    <thead>
+                                                        <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', color: 'var(--text-muted)' }}>
+                                                            <th style={{ padding: '1rem', fontSize: '0.8rem', textTransform: 'uppercase', fontWeight: 700 }}>Name</th>
+                                                            <th style={{ padding: '1rem', fontSize: '0.8rem', textTransform: 'uppercase', fontWeight: 700 }}>Email</th>
+                                                            <th style={{ padding: '1rem', fontSize: '0.8rem', textTransform: 'uppercase', fontWeight: 700 }}>Subject</th>
+                                                            <th style={{ padding: '1rem', fontSize: '0.8rem', textTransform: 'uppercase', fontWeight: 700 }}>Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td colSpan="4" style={{ padding: '3rem 1rem', textAlign: 'center', color: 'var(--text-muted)', fontWeight: 600 }}>
+                                                                No messages yet.
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'flex-start' }}>
+                                                <button 
+                                                    type="button"
+                                                    onClick={() => showMessage('No further messages in registry.')}
+                                                    className="btn-primary" 
+                                                    style={{ padding: '0.6rem 1.4rem', fontSize: '0.85rem', background: '#0c0a24', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '0.75rem' }}
+                                                >
+                                                    View All Messages
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        {/* Right Panel: Quick Actions */}
+                                        <div className="admin-panel">
+                                            <h3 className="admin-panel-title">Quick Actions</h3>
+                                            
+                                            <div className="quick-action-list">
+                                                <button type="button" onClick={() => setActiveTab('projects')} className="quick-action-item">
+                                                    <span className="quick-action-left">
+                                                        <Plus size={16} style={{ color: 'var(--accent)' }} />
+                                                        <span>Add New Project</span>
+                                                    </span>
+                                                    <ChevronRight size={16} />
+                                                </button>
+
+                                                <button type="button" onClick={() => setActiveTab('skills')} className="quick-action-item">
+                                                    <span className="quick-action-left">
+                                                        <Plus size={16} style={{ color: 'var(--accent)' }} />
+                                                        <span>Add New Skill</span>
+                                                    </span>
+                                                    <ChevronRight size={16} />
+                                                </button>
+
+                                                <button type="button" onClick={() => setActiveTab('content')} className="quick-action-item">
+                                                    <span className="quick-action-left">
+                                                        <Edit2 size={16} style={{ color: 'var(--accent)' }} />
+                                                        <span>Edit Portfolio Content</span>
+                                                    </span>
+                                                    <ChevronRight size={16} />
+                                                </button>
+
+                                                <button type="button" onClick={() => showMessage('No messages in registry.')} className="quick-action-item">
+                                                    <span className="quick-action-left">
+                                                        <Send size={16} style={{ color: 'var(--accent)' }} />
+                                                        <span>View Contact Messages</span>
+                                                    </span>
+                                                    <ChevronRight size={16} />
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </motion.div>
+                                )}
                                 {activeTab === 'projects' && (
                                 <motion.div 
                                     key="projects"

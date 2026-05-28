@@ -1,45 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code, Server, Database, GraduationCap, Laptop, Cpu, Globe, Rocket } from 'lucide-react';
-
-const icons = {
-  Code, Server, Database, GraduationCap, Laptop, Cpu, Globe, Rocket
-};
-
-const DEFAULT_CARDS = [
-  {
-    icon: 'Code',
-    title: 'Frontend Development',
-    desc: 'Building clean, responsive and interactive UIs using HTML, CSS, JavaScript and React — focused on accessibility and user experience.',
-    span: true,
-    color: '#6366f1',
-  },
-  {
-    icon: 'Server',
-    title: 'Backend Development',
-    desc: 'Building RESTful APIs and server-side logic using Node.js and Express, integrated with MongoDB.',
-    span: false,
-    color: '#10b981',
-  },
-  {
-    icon: 'Database',
-    title: 'Database & APIs',
-    desc: 'Designing data schemas with MongoDB and documenting APIs using Postman.',
-    span: false,
-    color: '#f59e0b',
-  },
-  {
-    icon: 'GraduationCap',
-    title: 'Always Learning',
-    desc: 'Currently deepening my knowledge in Applied Computer Science at Daystar University — bridging academic theory with real-world projects.',
-    span: true,
-    color: '#ec4899'
-  },
-];
+import { User, ArrowRight } from 'lucide-react';
 
 const About = () => {
   const [aboutText, setAboutText] = React.useState("A highly motivated Applied Computer Science student at Daystar University, skilled in the MERN stack, APIs and version control. Passionate about building accessible, user-friendly technology.");
-  const [aboutCards, setAboutCards] = React.useState(DEFAULT_CARDS);
 
   React.useEffect(() => {
     const fetchAbout = async () => {
@@ -47,9 +11,8 @@ const About = () => {
         const res = await fetch('/api/admin/portfolio-content');
         if (res.ok) {
           const data = await res.json();
-          if (data.about) {
-            if (data.about.text) setAboutText(data.about.text);
-            if (data.about.cards && data.about.cards.length > 0) setAboutCards(data.about.cards);
+          if (data.about && data.about.text) {
+            setAboutText(data.about.text);
           }
         }
       } catch (err) {
@@ -58,9 +21,8 @@ const About = () => {
         if (localContent) {
           try {
             const parsed = JSON.parse(localContent);
-            if (parsed.about) {
-                if (parsed.about.text) setAboutText(parsed.about.text);
-                if (parsed.about.cards) setAboutCards(parsed.about.cards);
+            if (parsed.about && parsed.about.text) {
+              setAboutText(parsed.about.text);
             }
           } catch(e) {}
         }
@@ -69,44 +31,62 @@ const About = () => {
     fetchAbout();
   }, []);
 
-  const getIcon = (iconName) => {
-      const IconComp = icons[iconName] || Code;
-      return <IconComp size={22} />;
-  }
-
   return (
-    <section id="about">
+    <section id="about" style={{ padding: '100px 0' }}>
       <div className="container">
-        <motion.div
-          className="section-head"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="gradient-text">About Me</h2>
-          <p>{aboutText}</p>
-        </motion.div>
-
-      <div className="bento-grid">
-        {aboutCards.map((card, i) => (
+        <div className="about-grid-split">
+          
+          {/* Left Column - Story Text */}
           <motion.div
-            key={i}
-            className={`bento-card ${card.span ? 'span-2' : ''}`}
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.08 }}
+            transition={{ duration: 0.8 }}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '1.5rem' }}
           >
-            <div className="bento-card-icon" style={{ color: card.color, background: `${card.color}15`, border: `1px solid ${card.color}30` }}>
-              {getIcon(card.icon)}
+            <div className="hero-tag" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textTransform: 'none' }}>
+              <User size={14} style={{ color: 'var(--accent)' }} />
+              <span>ABOUT ME</span>
             </div>
-            <h3>{card.title}</h3>
-            <p>{card.desc}</p>
+
+            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, margin: 0, textAlign: 'left' }}>
+              About <span style={{ color: 'var(--accent-blue)' }}>Me</span>
+            </h2>
+
+            <p style={{ margin: 0, fontSize: '1.05rem', lineHeight: 1.8, color: 'var(--text-secondary)', textAlign: 'justify' }}>
+              {aboutText}
+            </p>
+
+            <p style={{ margin: 0, fontSize: '1rem', lineHeight: 1.8, color: 'var(--text-muted)', textAlign: 'justify' }}>
+              My technical journey is driven by solving complex problems with clean and modular code. Working with modern architectures allows me to bridge the gap between robust backend operations and highly interactive user experiences.
+            </p>
+
+            <a href="/resume" className="btn-outline" style={{ borderRadius: '50px', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.1)' }}>
+              Read More About Me <ArrowRight size={16} />
+            </a>
           </motion.div>
-        ))}
+
+          {/* Right Column - Glowing Photo Frame */}
+          <motion.div
+            className="photo-frame-container"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <div className="photo-frame">
+              <div className="glow-spot glow-spot-left"></div>
+              <div className="glow-spot glow-spot-right"></div>
+              
+              <svg viewBox="0 0 24 24" fill="currentColor" style={{ color: 'rgba(99, 102, 241, 0.15)', width: '40%', height: '40%' }}>
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+              </svg>
+            </div>
+          </motion.div>
+
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
   );
 };
 

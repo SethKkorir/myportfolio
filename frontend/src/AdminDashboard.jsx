@@ -4,7 +4,7 @@ import {
     LayoutDashboard, LogOut, Plus, Edit2, Trash2, X, 
     Layers, Cpu, Settings, Monitor, Database, Terminal, 
     Cloud, Server, Code2, Wrench, FileText, Download, Briefcase,
-    Sun, Moon, ArrowRight, ChevronRight, Send, Github
+    Sun, Moon, ArrowRight, ChevronRight, Send, Github, Mail
 } from 'lucide-react';
 import jsPDF from 'jspdf';
 

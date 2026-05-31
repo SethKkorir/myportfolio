@@ -6,6 +6,7 @@ const Skill = require('../models/skill');
 const PortfolioContent = require('../models/portfolio-content');
 const Resume = require('../models/resume');
 const CoverLetter = require('../models/cover-letter');
+const Contact = require('../models/contact');
 
 // --- GENERIC GET/UPDATE HELPERS ---
 
@@ -182,4 +183,15 @@ router.delete('/skills/:id', auth, async (req, res) => {
     }
 });
 
+// --- CONTACT INQUIRIES ---
+router.get('/contacts', auth, async (req, res) => {
+    try {
+        const contacts = await Contact.find().sort({ createdAt: -1 });
+        res.json(contacts);
+    } catch (err) {
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
 module.exports = router;
+

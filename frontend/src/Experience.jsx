@@ -164,9 +164,6 @@ const Experience = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <span className="text-accent uppercase tracking-widest font-black text-xs mb-4 inline-block px-4 py-1.5 bg-accent/10 rounded-full border border-accent/20">
-            Professional Timeline
-          </span>
           <h2 className="text-5xl md:text-7xl font-black font-heading text-text-primary tracking-tight mb-6">
             Experience & <span className="gradient-text">Education</span>
           </h2>

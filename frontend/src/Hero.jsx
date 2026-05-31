@@ -6,7 +6,9 @@ const Hero = () => {
   const [content, setContent] = React.useState({
     greeting: "Hello, I'm",
     name: "Seth Kipchumba Korir",
+    title: "Full Stack Developer",
     tagline: "Applied Computer Science Student at Daystar University & Junior Web Developer with hands-on experience in the MERN stack and REST API development.",
+    profilePhoto: "",
     socials: [
       { id: 1, platform: "GitHub", href: "https://github.com/SethKkorir" },
       { id: 2, platform: "LinkedIn", href: "https://www.linkedin.com/in/seth-korir-7b9416279/" },
@@ -33,7 +35,9 @@ const Hero = () => {
               ...prev,
               greeting: data.hero.greeting || prev.greeting,
               name: data.hero.name || prev.name,
+              title: data.hero.title || prev.title,
               tagline: data.hero.tagline || prev.tagline,
+              profilePhoto: data.hero.profilePhoto || prev.profilePhoto,
               socials: data.socials || prev.socials
             }));
           }
@@ -93,6 +97,7 @@ const Hero = () => {
                 ...prev,
                 greeting: parsed.hero.greeting || prev.greeting,
                 name: parsed.hero.name || prev.name,
+                title: parsed.hero.title || prev.title,
                 tagline: parsed.hero.tagline || prev.tagline,
                 socials: parsed.socials || prev.socials
               }));
@@ -174,21 +179,18 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="hero-tag" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textTransform: 'none' }}>
-              <span>👋 {content.greeting}</span>
-            </div>
 
             <h1 style={{ fontSize: 'clamp(2.5rem, 5.5vw, 4.5rem)', fontWeight: 900, lineHeight: 1.15, margin: 0 }}>
               {firstName} <span style={{ color: 'var(--accent-blue)' }}>{lastName}</span>
               <br />
-              <span className="gradient-text" style={{ fontSize: 'clamp(1.8rem, 4vw, 3.2rem)' }}>Full Stack Developer</span>
+              <span className="gradient-text" style={{ fontSize: 'clamp(1.8rem, 4vw, 3.2rem)' }}>{content.title || "Full Stack Developer"}</span>
             </h1>
 
-            <p className="hero-sub" style={{ margin: 0, textAlign: 'left', fontSize: '1.05rem', lineHeight: 1.7, color: 'var(--text-secondary)' }}>
+            <p className="hero-sub" style={{ margin: 0, fontSize: '1.05rem', lineHeight: 1.7, color: 'var(--text-secondary)' }}>
               {content.tagline}
             </p>
 
-            <div className="hero-btns" style={{ display: 'flex', gap: '1rem', width: '100%', justifyContent: 'flex-start', margin: 0 }}>
+            <div className="hero-btns" style={{ display: 'flex', gap: '1rem', margin: 0 }}>
               <a href="#projects" className="btn-primary btn-gradient" style={{ borderRadius: '50px' }}>
                 View Projects
               </a>
@@ -198,12 +200,12 @@ const Hero = () => {
             </div>
 
             <div className="hero-socials" style={{ display: 'flex', gap: '1.25rem', marginTop: '0.5rem' }}>
-              {content.socials?.map(s => (
-                <a key={s.id} href={s.href} target="_blank" rel="noopener noreferrer" style={{ padding: '0.5rem', background: 'rgba(255,255,255,0.03)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.05)' }}>
+              {content.socials?.map((s, idx) => (
+                <a key={s.id || s._id || `social-${idx}`} href={s.href} target="_blank" rel="noopener noreferrer" style={{ padding: '0.5rem', background: 'rgba(255,255,255,0.03)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.05)' }}>
                   {getIcon(s.platform)}
                 </a>
               ))}
-              <a href="#contact" style={{ padding: '0.5rem', background: 'rgba(255,255,255,0.03)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <a key="mail-contact" href="#contact" style={{ padding: '0.5rem', background: 'rgba(255,255,255,0.03)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.05)' }}>
                 <Mail size={20} />
               </a>
             </div>
@@ -219,11 +221,19 @@ const Hero = () => {
             <div className="purple-glow"></div>
             
             <div className="orbit-container">
-              {/* Central Profile Circle with Silhouette */}
-              <div className="profile-circle">
-                <svg className="profile-silhouette" viewBox="0 0 24 24" fill="currentColor" style={{ color: 'rgba(99, 102, 241, 0.25)', width: '80%', height: '80%', margin: '10%' }}>
-                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                </svg>
+              {/* Central Profile Circle with Silhouette or Image */}
+              <div className="profile-circle" style={{ overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {content.profilePhoto ? (
+                  <img 
+                    src={content.profilePhoto} 
+                    alt={content.name} 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                  />
+                ) : (
+                  <svg className="profile-silhouette" viewBox="0 0 24 24" fill="currentColor" style={{ color: 'rgba(99, 102, 241, 0.25)', width: '80%', height: '80%', margin: '10%' }}>
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                  </svg>
+                )}
               </div>
 
               {/* Orbit Ring 1 (Inner) */}

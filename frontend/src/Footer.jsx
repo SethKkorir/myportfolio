@@ -3,6 +3,26 @@ import { Github, Linkedin, Twitter, Instagram, Mail, ArrowUp, Heart } from 'luci
 
 const Footer = () => {
   const year = new Date().getFullYear();
+  const [socials, setSocials] = React.useState([
+    { platform: "GitHub", href: "https://github.com/SethKkorir" },
+    { platform: "LinkedIn", href: "https://www.linkedin.com/in/seth-korir-7b9416279/" },
+    { platform: "Twitter", href: "https://x.com/Kipchumba_sk" }
+  ]);
+
+  React.useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const res = await fetch('/api/admin/portfolio-content');
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.socials) && data.socials.length > 0) {
+            setSocials(data.socials);
+          }
+        }
+      } catch (err) {}
+    };
+    fetchContent();
+  }, []);
 
   return (
     <footer>
@@ -30,11 +50,14 @@ const Footer = () => {
           <div className="footer-col">
             <h4>Connect</h4>
             <ul>
-              <li><a href="https://github.com/SethKkorir" target="_blank">GitHub</a></li>
-              <li><a href="https://www.linkedin.com/in/seth-korir-7b9416279/" target="_blank">LinkedIn</a></li>
-              <li><a href="https://x.com/Kipchumba_sk" target="_blank">Twitter</a></li>
+              {socials.map((s, idx) => (
+                <li key={idx}>
+                  <a href={s.href} target="_blank" rel="noopener noreferrer">
+                    {s.platform}
+                  </a>
+                </li>
+              ))}
               <li><a href="mailto:zsethkipchumba179@gmail.com">Email Me</a></li>
-              <li><a href="https://medium.com/@kipzseth" target="_blank">Medium</a></li>
             </ul>
           </div>
         </div>

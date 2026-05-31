@@ -4,10 +4,13 @@ const portfolioContentSchema = new mongoose.Schema({
     hero: {
         greeting: { type: String, default: "Hello, I'm" },
         name: { type: String, default: "Seth Kipchumba Korir" },
-        tagline: { type: String, default: "Building high-performance, scalable web systems with precision and purpose." }
+        title: { type: String, default: "Full Stack Developer" },
+        tagline: { type: String, default: "Building high-performance, scalable web systems with precision and purpose." },
+        profilePhoto: { type: String, default: "" }
     },
     about: {
         text: { type: String, default: "Motivated and detail-oriented computer science student with hands-on experience in full-stack web development using the MERN stack." },
+        subText: { type: String, default: "My technical journey is driven by solving complex problems with clean and modular code. Working with modern architectures allows me to bridge the gap between robust backend operations and highly interactive user experiences." },
         cards: [{
             title: String,
             desc: String,
@@ -16,7 +19,15 @@ const portfolioContentSchema = new mongoose.Schema({
             span: { type: Boolean, default: false }
         }]
     },
-
+    blogPosts: [{
+        title: String,
+        excerpt: String,
+        date: String,
+        readTime: String,
+        category: String,
+        href: String,
+        image: String
+    }],
     testimonials: [{
         name: String,
         role: String,

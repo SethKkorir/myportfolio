@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, BookOpen, Coffee, ExternalLink, Sparkles, ChevronRight } from 'lucide-react';
 
-const posts = [
+const DEFAULT_POSTS = [
   {
     title: 'The Sauna Life',
     excerpt: 'Exploring the profound health benefits and cultural significance of sauna practices around the globe.',
@@ -23,8 +23,32 @@ const posts = [
   },
 ];
 
-const Blog = () => (
-  <section id="blog" className="py-24">
+const Blog = () => {
+  const [posts, setPosts] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch('/api/admin/portfolio-content');
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.blogPosts) && data.blogPosts.length > 0) {
+            setPosts(data.blogPosts);
+          } else {
+            setPosts(DEFAULT_POSTS);
+          }
+        } else {
+          setPosts(DEFAULT_POSTS);
+        }
+      } catch (err) {
+        setPosts(DEFAULT_POSTS);
+      }
+    };
+    fetchPosts();
+  }, []);
+
+  return (
+    <section id="blog" className="py-24">
     <div className="container">
       <motion.div
         className="section-head mb-16"
@@ -32,9 +56,6 @@ const Blog = () => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
       >
-        <span className="text-accent uppercase tracking-widest font-black text-xs mb-4 inline-block px-4 py-1.5 bg-accent/10 rounded-full border border-accent/20">
-          Intellectual Pursuits
-        </span>
         <h2 className="text-5xl md:text-7xl font-black font-heading tracking-tight mb-6">
           Thoughts & <span className="gradient-text">Ink</span>
         </h2>
@@ -99,6 +120,7 @@ const Blog = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default Blog;

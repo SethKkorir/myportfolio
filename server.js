@@ -53,7 +53,8 @@ app.use(limiter);
 app.use('/api/auth', authLimiter);
 app.use('/api/contact', contactLimiter);
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '20mb' }));
+app.use(bodyParser.urlencoded({ limit: '20mb', extended: true }));
 
 // Connect to MongoDB
 connectToMongoDB();

@@ -1,11 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Home';
-import AdminLogin from './AdminLogin';
-import AdminRegister from './AdminRegister';
-import AdminDashboard from './AdminDashboard';
 import Resume from './Resume';
-import ProtectedRoute from './ProtectedRoute';
+import Login from './admin/Login';
+import Dashboard from './admin/Dashboard';
 
 function App() {
   return (
@@ -13,19 +11,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/resume" element={<Resume />} />
-        <Route path="/login" element={<AdminLogin />} />
-        <Route path="/register" element={<AdminRegister />} />
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/admin" element={<Dashboard />} />
+        <Route path="/admin/login" element={<Login />} />
+        <Route path="/admin/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );
 }
 
 export default App;
+

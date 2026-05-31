@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 /* Fonts are now imported in index.html as <link> tags to avoid Parcel network timeouts */
 
@@ -11,7 +9,7 @@ html {
 
 ::selection { background: var(--accent); color: white; }
 
-::webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: var(--bg-main); }
 ::-webkit-scrollbar-thumb {
   background: var(--bg-secondary);
@@ -392,7 +390,7 @@ section { padding: 100px 0; }
 /* ===== SKILLS ===== */
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 2rem;
 }
 .skill-group {
@@ -801,6 +799,10 @@ body {
   align-items: flex-start;
   gap: 1.5rem;
 }
+.hero-left .hero-btns,
+.hero-left .hero-socials {
+  justify-content: flex-start !important;
+}
 
 .hero-right {
   display: flex;
@@ -1120,6 +1122,10 @@ body {
   .hero-left {
     align-items: center;
   }
+  .hero-left .hero-btns,
+  .hero-left .hero-socials {
+    justify-content: center !important;
+  }
   .stats-grid-row {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1149,7 +1155,26 @@ body {
   .hero-inner {
     padding-top: 2rem;
   }
+  
+  /* Prevent orbit system from overflowing on mobile margins */
+  .orbit-container {
+    width: 290px;
+    height: 290px;
+  }
+  .profile-circle {
+    width: 150px;
+    height: 150px;
+  }
+  .orbit-ring-1 {
+    width: 210px;
+    height: 210px;
+  }
+  .orbit-ring-2 {
+    width: 280px;
+    height: 280px;
+  }
 }
+
 
 /* ========================================================
    ADMIN DASHBOARD PREMIUM SLEEK DARK STYLING
@@ -1336,5 +1361,84 @@ body {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+}
+
+/* ========================================================
+   PREMIUM SCREEN RESUME OVERHAUL (MATCHING DASHBOARD UI)
+   ======================================================== */
+@media screen {
+  .resume-doc {
+    background: rgba(8, 8, 10, 0.65) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(25px) !important;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.7), 0 0 50px rgba(99, 102, 241, 0.06) !important;
+    border-radius: 3rem !important;
+    color: #ffffff !important;
+    margin-top: 2rem !important;
+    margin-bottom: 4rem !important;
+  }
+  
+  .resume-sidebar {
+    background: rgba(4, 4, 6, 0.7) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.03) !important;
+    padding: 2.5rem 1.5rem !important;
+  }
+  
+  .resume-main {
+    background: transparent !important;
+    padding: 3rem 3.5rem !important;
+  }
+  
+  .resume-main-name {
+    color: #ffffff !important;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  }
+  
+  .resume-entry-title, 
+  .resume-section-head h2 {
+    color: #ffffff !important;
+  }
+  
+  .resume-summary,
+  .resume-entry-list li,
+  .resume-section p {
+    color: rgba(255, 255, 255, 0.6) !important;
+  }
+  
+  .resume-skill-tag {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    transition: var(--transition);
+  }
+  
+  .resume-skill-tag:hover {
+    border-color: rgba(99, 102, 241, 0.3) !important;
+    background: rgba(99, 102, 241, 0.05) !important;
+    color: white !important;
+    transform: translateY(-1px);
+  }
+  
+  .resume-divider {
+    background: rgba(255, 255, 255, 0.05) !important;
+  }
+  
+  .resume-section-head {
+    border-bottom-color: rgba(255, 255, 255, 0.05) !important;
+  }
+  
+  .resume-entry {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    margin-bottom: 1.5rem !important;
+    transition: var(--transition);
+  }
+  
+  .resume-entry:hover {
+    border-color: rgba(99, 102, 241, 0.15);
+    background: rgba(255, 255, 255, 0.02);
+  }
 }
 

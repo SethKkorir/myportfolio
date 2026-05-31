@@ -4,7 +4,7 @@ import Hero from './Hero';
 import About from './About';
 import Experience from './Experience';
 import Skills from './Skills';
-import Testimonials from './Testimonials';
+
 import Projects from './Projects';
 import Blog from './Blog';
 import Contact from './Contact';
@@ -20,7 +20,7 @@ const Home = () => (
       <About />
       <Experience />
       <Skills />
-      <Testimonials />
+
       <Projects />
       <Blog />
       <Contact />

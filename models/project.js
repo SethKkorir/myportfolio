@@ -10,6 +10,10 @@ const projectSchema = new mongoose.Schema({
         required: true
     },
     techStack: [String],
+    category: {
+        type: String,
+        default: 'Fullstack'
+    },
     image: String,
     demoLink: String,
     githubLink: String,

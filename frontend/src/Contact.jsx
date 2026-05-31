@@ -96,10 +96,6 @@ const Contact = () => {
         
         {/* Section Head */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '1rem', marginBottom: '3.5rem' }}>
-          <div className="hero-tag" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textTransform: 'none' }}>
-            <Mail size={14} style={{ color: 'var(--accent)' }} />
-            <span>CONTACT</span>
-          </div>
           <h2 style={{ fontSize: 'clamp(2.2rem, 5vw, 3rem)', fontWeight: 900, margin: 0, color: 'white' }}>
             Get In Touch
           </h2>
@@ -108,7 +104,7 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="contact-wrap" style={{ gridTemplateColumns: '1.2fr 1fr', alignItems: 'start', gap: '4rem' }}>
+        <div className="contact-wrap" style={{ alignItems: 'start', gap: '4rem' }}>
           
           {/* Form Column */}
           <motion.div
